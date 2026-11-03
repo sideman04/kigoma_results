@@ -83,7 +83,7 @@ export default function MarksMonitoring() {
                         <span className="text-[10px] text-neutral-600 block mt-1">{s.enteredCount} / {s.totalStudents}</span>
                       </Td>
                       <Td>
-                        <Button variant="ghost" size="sm" onClick={() => navigateTo(`/teacher/marks-entry/${s.id}`)}><Eye size={16} /> Open</Button>
+                        <Button variant="ghost" size="sm" onClick={() => navigateTo(`/school/marks-entry/${s.id}`)}><Eye size={16} /> Open</Button>
                       </Td>
                     </Tr>
                   ))}

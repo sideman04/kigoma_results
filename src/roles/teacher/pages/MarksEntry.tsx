@@ -8,8 +8,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardHeader, CardTitle, CardContent, Button, Input, Select, Option, Badge } from '../../shared/components/ui';
 import { RolePageHeader } from '../../shared/components/RoleTopbar';
 import { examinationService, subjectAssignmentService } from '../../shared/services/api';
+import { marksService, studentService } from '../../shared/services/api';
 import { useToast } from '../../shared/components/ui';
-import { ArrowUp, ArrowRight, Clock, School, BookOpen } from 'lucide-react';
+import { useAuth } from '../../../context/AuthContext';
+import { ArrowRight } from 'lucide-react';
 
 const STEPS = [
   { key: 'year', label: 'Academic year' },
@@ -19,8 +21,9 @@ const STEPS = [
   { key: 'subject', label: 'Subject' },
 ];
 
-export default function MarksEntry() {
+export default function MarksEntry({ basePath = '/teacher' }: { basePath?: string }) {
   const { toast } = useToast();
+  const { user } = useAuth() as any;
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<{
@@ -34,23 +37,77 @@ export default function MarksEntry() {
     examinationService.list({ pageSize: 100 }).then((res: any) => setExams(res.data)).catch(() => {});
   }, []);
 
+  useEffect(() => {
+    if (!form.classId) {
+      setSubjects([]);
+      return;
+    }
+    subjectAssignmentService.list({ classId: form.classId })
+      .then((assignments) => setSubjects(assignments))
+      .catch(() => setSubjects([]));
+  }, [form.classId]);
+
   const current = STEPS[step]!;
   const disabled = () => {
     switch (current.key) {
       case 'year': return !form.academicYearId;
       case 'exam': return !form.examinationId;
       case 'class': return !form.classId;
-      case 'stream': return !form.streamId;
+      case 'stream': return false;
       case 'subject': return !form.subjectId;
     }
     return true;
   };
 
-  const goNext = () => {
+  const goNext = async () => {
     if (disabled()) return;
     if (step < STEPS.length - 1) setStep(step + 1);
     else {
-      navigate(`/teacher/marks-entry/session-new`);
+      setLoading(true);
+      try {
+        const exam = exams.find((item) => item.id === form.examinationId);
+        const subject = subjects.find((item) => item.id === form.subjectId);
+        const classItem = classes.find((item) => item.id === form.classId);
+        const streamItem = streams.find((item) => item.id === form.streamId);
+        const schoolId = typeof user?.schoolId === 'number'
+          ? `school-s${String(user.schoolId).padStart(4, '0')}`
+          : user?.schoolId;
+        const students = (await studentService.list({ pageSize: 100, scope: { schoolId } })).data
+          .filter((student) => student.classId === form.classId && (!form.streamId || student.streamId === form.streamId));
+
+        if (!students.length) {
+          toast({ title: 'No students found', description: 'There are no eligible students for this class and stream.', variant: 'default' });
+          return;
+        }
+
+        const session = await marksService.createSession({
+          examinationId: form.examinationId,
+          examinationName: exam?.name || 'Examination',
+          schoolId: schoolId || 'school-s0101',
+          classId: form.classId,
+          className: classItem?.name,
+          streamId: form.streamId || undefined,
+          streamName: streamItem?.name,
+          subjectId: form.subjectId,
+          subjectName: subject?.subjectName || subject?.name,
+          subjectCode: subject?.subjectCode || subject?.code,
+          teacherId: user?.username || 'teacher',
+          academicYearId: form.academicYearId,
+          status: 'draft',
+        });
+        await marksService.saveMarks(session.id, students.map((student) => ({
+          studentId: student.id,
+          studentName: student.name,
+          regNo: student.regNo,
+          mark: null,
+          status: 'draft' as const,
+        })));
+        navigate(`${basePath}/marks-entry/${session.id}`);
+      } catch (error) {
+        toast({ title: 'Unable to open marks entry', description: error instanceof Error ? error.message : 'Try again.', variant: 'default' });
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -144,7 +201,7 @@ export default function MarksEntry() {
                 {classes.map((c) => (
                   <button
                     key={c.id}
-                    onClick={() => setForm({ ...form, classId: c.id, streamId: '' })}
+                    onClick={() => setForm({ ...form, classId: c.id, streamId: '', subjectId: '' })}
                     className={`flex items-center justify-between p-4 rounded-lg border transition-colors ${
                       form.classId === c.id ? 'bg-green-50 border-green-700' : 'border-neutral-200 hover:border-neutral-300'
                     }`}
@@ -234,7 +291,7 @@ export default function MarksEntry() {
           {step < STEPS.length - 1 ? (
             <Button variant="primary" size="sm" onClick={goNext} disabled={disabled()}>Continue</Button>
           ) : (
-            <Button variant="primary" size="sm" onClick={goNext} disabled={disabled()}>Open marks entry</Button>
+            <Button variant="primary" size="sm" onClick={goNext} disabled={disabled() || loading} isLoading={loading}>Open marks entry</Button>
           )}
         </div>
       </div>

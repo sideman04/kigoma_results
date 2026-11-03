@@ -14,6 +14,9 @@ import Subjects from './pages/Subjects';
 import Examinations from './pages/Examinations';
 import MarksMonitoring from './pages/MarksMonitoring';
 import Review from './pages/Review';
+import MarksEntry from '../teacher/pages/MarksEntry';
+import MarksEntryDetail from '../teacher/pages/MarksEntryDetail';
+import BulkMarksImport from './pages/BulkMarksImport';
 import { Reports, Notifications, Profile } from './pages/Reports';
 
 const SCHOOL_GROUPS = [
@@ -36,6 +39,8 @@ const SCHOOL_GROUPS = [
     label: 'Examinations',
     items: [
       { to: '/school/examinations', label: 'Examinations', icon: 'ClipboardList' },
+      { to: '/school/marks-entry', label: 'Enter / import marks', icon: 'Upload' },
+      { to: '/school/marks-import', label: 'Bulk import all subjects', icon: 'FileText' },
       { to: '/school/marks-monitoring', label: 'Marks monitoring', icon: 'ArrowUp' },
       { to: '/school/review', label: 'School-level review', icon: 'Check' },
     ],
@@ -63,6 +68,9 @@ export const schoolRoutes = [
       { path: 'examinations', element: <Examinations /> },
       { path: 'examinations/:id', element: <div className="p-6">Examination detail</div> },
       { path: 'marks-monitoring', element: <MarksMonitoring /> },
+      { path: 'marks-entry', element: <MarksEntry basePath="/school" /> },
+      { path: 'marks-entry/:id', element: <MarksEntryDetail basePath="/school" /> },
+      { path: 'marks-import', element: <BulkMarksImport /> },
       { path: 'review', element: <Review /> },
       { path: 'reports', element: <Reports /> },
       { path: 'notifications', element: <Notifications /> },

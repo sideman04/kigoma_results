@@ -325,6 +325,16 @@ export const marksService = {
         }
       }, 600);
     }),
+  reviewSession: (sessionId: string, decision: 'verify' | 'return'): Promise<MarksEntrySession | null> =>
+    new Promise((resolve) => {
+      setTimeout(() => {
+        const session = demoSessions.find((item) => item.id === sessionId);
+        if (!session) return resolve(null);
+        session.status = decision === 'verify' ? 'verified' : 'returned';
+        session.updatedAt = new Date().toISOString();
+        resolve(session);
+      }, 500);
+    }),
   createSession: (data: Omit<MarksEntrySession, 'id' | 'createdAt' | 'updatedAt'>): Promise<MarksEntrySession> =>
     new Promise((resolve) => {
       setTimeout(() => {

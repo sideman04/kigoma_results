@@ -26,7 +26,7 @@ type MarkRow = {
   touched: boolean;
 };
 
-export default function MarksEntryDetail() {
+export default function MarksEntryDetail({ basePath = '/teacher' }: { basePath?: string }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -36,6 +36,7 @@ export default function MarksEntryDetail() {
   const [saving, setSaving] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [lastSaved, setLastSaved] = useState<string | null>(null);
+  const [importing, setImporting] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -65,7 +66,8 @@ export default function MarksEntryDetail() {
     invalid: rows.filter((r) => !!r.error).length,
   };
   const pct = summary.total ? Math.round((summary.entered / summary.total) * 100) : 0;
-  const canSubmit = summary.entered > 0 && summary.invalid === 0;
+  const isLocked = session?.status === 'submitted' || session?.status === 'verified';
+  const canSubmit = summary.total > 0 && summary.missing === 0 && summary.invalid === 0 && !isLocked;
 
   const onMarkChange = useCallback((studentId: string, value: string) => {
     const num = value === '' ? null : Number(value);
@@ -124,6 +126,48 @@ export default function MarksEntryDetail() {
     }
   };
 
+  const importSheet = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+    setImporting(true);
+    try {
+      const text = await file.text();
+      const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+      if (lines.length < 2) throw new Error('The CSV file has no marks rows.');
+      const headers = lines[0]!.split(',').map((header) => header.trim().toLowerCase());
+      const regIndex = headers.findIndex((header) => ['regno', 'reg_no', 'registration', 'registration number'].includes(header));
+      const markIndex = headers.indexOf('mark');
+      if (regIndex < 0 || markIndex < 0) throw new Error('CSV must contain regNo and mark columns.');
+
+      const imported = new Map<string, number | null>();
+      lines.slice(1).forEach((line) => {
+        const cells = line.split(',').map((cell) => cell.trim());
+        const regNo = cells[regIndex];
+        const rawMark = cells[markIndex];
+        if (!regNo) return;
+        imported.set(regNo.toLowerCase(), rawMark === '' ? null : Number(rawMark));
+      });
+
+      let matched = 0;
+      setRows((current) => current.map((row) => {
+        const value = imported.get((row.regNo || '').toLowerCase());
+        if (value === undefined) return row;
+        matched += 1;
+        const error = value !== null && (!Number.isFinite(value) || value < 0 || value > MAX_MARK)
+          ? `Enter a mark from 0 to ${MAX_MARK}`
+          : undefined;
+        return { ...row, mark: value, error, status: value === null ? 'draft' : 'entered', touched: true };
+      }));
+      setLastSaved(null);
+      toast({ title: 'Sheet imported', description: `${matched} matching student row(s) loaded. Review and save the draft.`, variant: 'success' });
+    } catch (error) {
+      toast({ title: 'Import failed', description: error instanceof Error ? error.message : 'Use a valid CSV file.', variant: 'default' });
+    } finally {
+      setImporting(false);
+    }
+  };
+
   if (loading) return <div className="h-80 flex items-center justify-center"><div className="h-4 w-32 rounded-md bg-neutral-200 animate-pulse" /></div>;
   if (!session) return <div className="p-12 text-center text-neutral-500">Session not found.</div>;
 
@@ -134,7 +178,7 @@ export default function MarksEntryDetail() {
         description={`${session.examinationName} · ${session.subjectName} · ${session.className} ${session.streamName ? '· ' + session.streamName : ''}`}
         action={
           <div className="flex items-center gap-2">
-            <Link to="/teacher/marks-entry" className="text-xs font-medium text-neutral-600 hover:underline">← Change selection</Link>
+            <Link to={`${basePath}/marks-entry`} className="text-xs font-medium text-neutral-600 hover:underline">← Change selection</Link>
           </div>
         }
       />
@@ -149,7 +193,14 @@ export default function MarksEntryDetail() {
       <Card>
         <CardHeader>
           <CardTitle>Enter marks</CardTitle>
-          <p className="text-[10px] text-neutral-500">Type a mark and press Enter or Tab to move to the next row. Invalid entries are highlighted in red.</p>
+          <p className="text-[10px] text-neutral-500">Type a mark and press Enter or Tab to move to the next row, or import a CSV sheet. Invalid entries are highlighted in red.</p>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <label className={`inline-flex cursor-pointer items-center gap-2 rounded-md border border-neutral-200 bg-white px-3 py-2 text-xs font-medium text-neutral-700 hover:bg-neutral-50 ${isLocked || importing ? 'pointer-events-none opacity-50' : ''}`}>
+              <Upload className="h-4 w-4" /> {importing ? 'Importing…' : 'Import CSV sheet'}
+              <input type="file" accept=".csv,text/csv" className="sr-only" onChange={importSheet} disabled={isLocked || importing} />
+            </label>
+            <span className="text-[11px] text-neutral-500">Required columns: <code>regNo,mark</code></span>
+          </div>
         </CardHeader>
         <CardContent className="pt-0">
           <div className="overflow-auto rounded-lg border border-neutral-200 bg-white max-h-[60vh]">
@@ -180,8 +231,9 @@ export default function MarksEntryDetail() {
                           type="number"
                           min="0"
                           max={String(MAX_MARK)}
-                          className="w-20 text-right text-sm border-neutral-200 focus:border-green-700 focus:ring-1 focus:ring-green-700 ${invalid ? 'border-red-600 focus:border-red-600 focus:ring-red-600' : ''}"
+                          className={`w-20 text-right text-sm border-neutral-200 focus:border-green-700 focus:ring-1 focus:ring-green-700 ${invalid ? 'border-red-600 focus:border-red-600 focus:ring-red-600' : ''}`}
                           placeholder="–"
+                          disabled={isLocked}
                         />
                       </Td>
                       <Td className="font-mono text-xs text-neutral-500">{MAX_MARK}</Td>
@@ -219,7 +271,7 @@ export default function MarksEntryDetail() {
           )}
         </div>
         <div className="flex gap-2">
-          <Button variant="ghost" size="sm" onClick={saveDraft} disabled={saving} isLoading={saving}>
+          <Button variant="ghost" size="sm" onClick={saveDraft} disabled={saving || isLocked} isLoading={saving}>
             <Save className="mr-2 h-4 w-4" /> Save draft
           </Button>
           <Button variant="primary" size="sm" onClick={submitMarks} disabled={submitting || !canSubmit} isLoading={submitting}>
@@ -234,6 +286,11 @@ export default function MarksEntryDetail() {
       {summary.invalid > 0 && (
         <div className="rounded-lg border border-red-100 bg-red-50 p-4">
           <p className="text-sm text-red-800">Please correct invalid entries before submitting.</p>
+        </div>
+      )}
+      {isLocked && (
+        <div className="rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm text-blue-800">
+          This session has already been submitted and is locked for editing.
         </div>
       )}
     </div>
