@@ -17,7 +17,7 @@ export default function ExaminationDetail() {
       <RolePageHeader
         title="Examination detail"
         description={`Regional monitoring for examination ${id}.`}
-        action={<Button variant="outline" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> Submission tracking</Button>}
+        action={<Button variant="ghost" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> Submission tracking</Button>}
       />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
@@ -64,10 +64,10 @@ export default function ExaminationDetail() {
           <CardHeader><CardTitle>Actions</CardTitle></CardHeader>
           <CardContent className="pt-0">
             <div className="space-y-2">
-              <Button variant="outline" size="sm" className="w-full justify-start" onClick={() => navigate(`/regional/submissions`)}>
+              <Button variant="ghost" size="sm" className="w-full justify-start" onClick={() => navigate(`/regional/submissions`)}>
                 <Activity className="mr-1 h-4 w-4" /> View all submissions
               </Button>
-              <Button variant="outline" size="sm" className="w-full justify-start" onClick={() => navigate('/regional/performance')}>
+              <Button variant="ghost" size="sm" className="w-full justify-start" onClick={() => navigate('/regional/performance')}>
                 <BarChart3Icon /> Regional performance
               </Button>
             </div>

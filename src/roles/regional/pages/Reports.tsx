@@ -2,9 +2,11 @@
  * Regional Administrator — Reports.
  */
 
+import { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Select, Option } from '../../shared/components/ui';
 import { RolePageHeader } from '../../shared/components/RoleTopbar';
-import { FileText, Print, Download, ArrowRight, School, Building2 } from 'lucide-react';
+import { useToast } from '../../shared/components/ui';
+import { FileText, Download, ArrowRight, School, Building2 } from 'lucide-react';
 
 const REPORTS = [
   { id: 'regional-perf', icon: Building2, title: 'Regional performance report', desc: 'Performance summary for Kigoma Region across all councils.', category: 'Performance' },
@@ -15,6 +17,7 @@ const REPORTS = [
 ];
 
 export default function Reports() {
+  const { toast } = useToast();
   const [selected, setSelected] = useState<string | null>(null);
   const [format, setFormat] = useState<'pdf' | 'excel' | 'print'>('pdf');
 
@@ -31,7 +34,7 @@ export default function Reports() {
       <RolePageHeader
         title="Regional reports"
         description="Select a report type, preview, print or export."
-        action={<Button variant="outline" size="sm"><Download className="mr-1 h-4 w-4" /> Downloads</Button>}
+        action={<Button variant="ghost" size="sm"><Download className="mr-1 h-4 w-4" /> Downloads</Button>}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -72,7 +75,7 @@ export default function Reports() {
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">Format</span>
-                  <Select value={format} onChange={(e) => setFormat(e.target.value as any)} className="w-48">
+                  <Select value={format} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFormat(e.target.value as any)} className="w-48">
                     <Option value="pdf">PDF</Option>
                     <Option value="excel">Excel</Option>
                     <Option value="print">Print</Option>
@@ -87,7 +90,7 @@ export default function Reports() {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm" onClick={() => window.print()}>Print preview</Button>
+                  <Button variant="ghost" size="sm" onClick={() => window.print()}>Print preview</Button>
                   <Button variant="primary" size="sm" onClick={runExport}>Export {format.toUpperCase()}</Button>
                 </div>
                 <p className="text-[10px] text-neutral-500 mt-3">Export produces a demonstration file. The PHP backend generates real reports.</p>
@@ -100,5 +103,4 @@ export default function Reports() {
   );
 }
 
-import { useState } from 'react';
-import { toast } from '../../shared/components/ui';
+

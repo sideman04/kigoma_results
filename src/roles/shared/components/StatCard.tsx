@@ -2,7 +2,7 @@
  * Shared statistic card for role dashboards.
  */
 
-import { cn } from '../../../shared/utils';
+import { cn } from '../utils';
 import { Badge } from './ui';
 
 interface StatCardProps {

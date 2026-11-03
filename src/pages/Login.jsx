@@ -10,6 +10,14 @@ const DEMO = [
   { label: 'Teacher', username: 'teacher' },
 ];
 
+const ROLE_HOME = {
+  super_admin: '/super-admin',
+  regional_admin: '/regional',
+  council_admin: '/council',
+  school_admin: '/school',
+  teacher: '/teacher',
+};
+
 export default function Login() {
   const { user, signIn } = useAuth();
   const navigate = useNavigate();
@@ -19,7 +27,7 @@ export default function Login() {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
 
-  if (user) return <Navigate to={user.role === 'super_admin' ? '/super-admin' : '/dashboard'} replace />;
+  if (user) return <Navigate to={ROLE_HOME[user.role] || '/dashboard'} replace />;
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -34,7 +42,7 @@ export default function Login() {
       const from = location.state?.from;
       const destination = from
         ? `${from.pathname}${from.search || ''}${from.hash || ''}`
-        : (signedIn.role === 'super_admin' ? '/super-admin' : '/dashboard');
+        : (ROLE_HOME[signedIn.role] || '/dashboard');
       navigate(destination, { replace: true });
     } catch (err) {
       setError(err.message);

@@ -3,7 +3,7 @@
  */
 
 import { useEffect, useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Table, Thead, Tbody, Tr, Th, Td } from '../../shared/components/ui';
+import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Table, Thead, Tbody, Tr, Th, Td, EmptyState } from '../../shared/components/ui';
 import { RolePageHeader } from '../../shared/components/RoleTopbar';
 import { examinationService } from '../../shared/services/api';
 import { useToast } from '../../shared/components/ui';
@@ -15,10 +15,10 @@ export default function Examinations() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    examinationService.list({ pageSize: 100 }).then((res) => {
+    examinationService.list({ pageSize: 100 }).then((res: any) => {
       setExams(res.data);
       setLoading(false);
-    }).catch((err) => toast({ title: 'Failed to load examinations', description: err instanceof Error ? err.message : '', variant: 'default' }));
+    }).catch((err: any) => toast({ title: 'Failed to load examinations', description: err instanceof Error ? err.message : '', variant: 'default' }));
   }, [toast]);
 
   return (
@@ -26,7 +26,7 @@ export default function Examinations() {
       <RolePageHeader
         title="Examinations"
         description="Examinations assigned to schools in Kasulu TC."
-        action={<Button variant="outline" size="sm"><Activity className="mr-1 h-4 w-4" /> View submissions</Button>}
+        action={<Button variant="ghost" size="sm"><Activity className="mr-1 h-4 w-4" /> View submissions</Button>}
       />
 
       <Card>
@@ -41,12 +41,12 @@ export default function Examinations() {
               <Table>
                 <Thead>
                   <Tr>
-                    <Th>Code</th>
-                    <th>Name</th>
-                    <Th className="w-32">Type</th>
-                    <Th className="w-40">Year / Level</th>
-                    <Th className="w-32">Status</th>
-                    <Th className="w-48">Actions</th>
+                    <Th>Code</Th>
+                    <Th>Name</Th>
+                    <Th className="w-32">Type</Th>
+                    <Th className="w-40">Year / Level</Th>
+                    <Th className="w-32">Status</Th>
+                    <Th className="w-48">Actions</Th>
                   </Tr>
                 </Thead>
                 <Tbody>

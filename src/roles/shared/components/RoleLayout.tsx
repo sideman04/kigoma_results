@@ -8,12 +8,12 @@ import { useState } from 'react';
 import { RoleSidebar } from './RoleSidebar';
 import { RoleTopbar } from './RoleTopbar';
 import { ToastProvider, Toaster } from './ui';
-import { cn } from '../../../shared/utils';
+import { cn } from '../utils';
 
 export interface RoleLayoutProps {
   groups: React.ComponentProps<typeof RoleSidebar>['groups'];
-  mobileOpen: boolean;
-  setMobileOpen: (open: boolean) => void;
+  mobileOpen?: boolean;
+  setMobileOpen?: (open: boolean) => void;
   brandName?: string;
   brandRole?: string;
   title?: string;
@@ -23,8 +23,6 @@ export interface RoleLayoutProps {
 
 export function RoleLayout({
   groups,
-  mobileOpen,
-  setMobileOpen,
   brandName,
   brandRole,
   title,
@@ -32,6 +30,7 @@ export function RoleLayout({
   breadcrumbs,
 }: RoleLayoutProps) {
   const location = useLocation();
+  const [mobileOpen, setMobileOpen] = useState(false);
   return (
     <ToastProvider>
       <div className="role-layout min-h-screen bg-neutral-50 font-sans">
@@ -49,6 +48,7 @@ export function RoleLayout({
             title={title}
             description={description}
             showSearch
+            onMenuClick={() => setMobileOpen(true)}
           />
           <main className="layout-content">
             <Outlet />

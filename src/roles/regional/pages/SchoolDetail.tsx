@@ -17,7 +17,7 @@ export default function SchoolDetail() {
       <RolePageHeader
         title="School profile"
         description={`Regional view of school ${id} — enrolment, examinations and submissions within Kigoma Region.`}
-        action={<Button variant="outline" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> Manage school (Super Admin)</Button>}
+        action={<Button variant="ghost" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> Manage school (Super Admin)</Button>}
       />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
@@ -68,10 +68,10 @@ export default function SchoolDetail() {
               </div>
             </div>
             <div className="mt-4 flex gap-2">
-              <Button variant="outline" size="sm" className="w-full justify-start" onClick={() => navigate(`/regional/examinations`)}>
+              <Button variant="ghost" size="sm" className="w-full justify-start" onClick={() => navigate(`/regional/examinations`)}>
                 <Clock className="mr-1 h-4 w-4" /> View examinations
               </Button>
-              <Button variant="outline" size="sm" className="w-full justify-start" onClick={() => navigate(`/regional/submissions`)}>
+              <Button variant="ghost" size="sm" className="w-full justify-start" onClick={() => navigate(`/regional/submissions`)}>
                 <ClipboardListIcon /> Submission tracking
               </Button>
             </div>

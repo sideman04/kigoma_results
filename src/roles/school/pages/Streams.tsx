@@ -22,11 +22,11 @@ export default function Streams() {
             <Table>
               <Thead>
                 <Tr>
-                  <Th>Class</th>
-                  <th>Stream</th>
-                  <Th className="w-32">Code</th>
-                  <Th className="w-32">Students</th>
-                  <Th className="w-32">Status</th>
+                  <Th>Class</Th>
+                  <Th>Stream</Th>
+                  <Th className="w-32">Code</Th>
+                  <Th className="w-32">Students</Th>
+                  <Th className="w-32">Status</Th>
                 </Tr>
               </Thead>
               <Tbody>

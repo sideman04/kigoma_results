@@ -2,7 +2,7 @@
  * Regional Administrator — Performance analytics (regional).
  */
 
-import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Select, Option } from '../../shared/components/ui';
+import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Select, Option, StatCard } from '../../shared/components/ui';
 import { RolePageHeader } from '../../shared/components/RoleTopbar';
 import { BarChart3, School, Building2, Users } from 'lucide-react';
 
@@ -12,7 +12,7 @@ export default function Performance() {
       <RolePageHeader
         title="Regional performance"
         description="Academic performance monitoring across councils and schools in Kigoma Region. Demo data only."
-        action={<Button variant="outline" size="sm"><BarChart3 className="mr-1 h-4 w-4" /> View analytics</Button>}
+        action={<Button variant="ghost" size="sm"><BarChart3 className="mr-1 h-4 w-4" /> View analytics</Button>}
       />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">

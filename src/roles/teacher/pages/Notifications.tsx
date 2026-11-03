@@ -4,13 +4,13 @@
 
 import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Table, Thead, Tbody, Tr, Th, Td, EmptyState } from '../../shared/components/ui';
 import { RolePageHeader } from '../../shared/components/RoleTopbar';
-import { FileText, Check, Upload, Activity, ArrowRight, Bell, User, Shield, Mail, Clock, LogOut } from 'lucide-react';
+import { FileText, Check, Upload, Activity, ArrowRight, LogOut } from 'lucide-react';
 import { StatCard } from '../../shared/components/StatCard';
 
 export function Drafts() {
   return (
     <div className="space-y-6">
-      <RolePageHeader title="Drafts" description="Your saved but unsubmitted marks entry sessions." action={<Button variant="outline" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> Continue entry</Button>} />
+      <RolePageHeader title="Drafts" description="Your saved but unsubmitted marks entry sessions." action={<Button variant="ghost" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> Continue entry</Button>} />
       <Card>
         <CardHeader><CardTitle>Saved drafts</CardTitle></CardHeader>
         <CardContent className="pt-0">
@@ -18,11 +18,11 @@ export function Drafts() {
             <Table>
               <Thead>
                 <Tr>
-                  <Th>Examination</th>
-                  <th>Class · Subject</th>
-                  <Th className="w-40">Progress</th>
-                  <Th className="w-40">Updated</th>
-                  <Th className="w-48">Actions</th>
+                  <Th>Examination</Th>
+                  <Th>Class · Subject</Th>
+                  <Th className="w-40">Progress</Th>
+                  <Th className="w-40">Updated</Th>
+                  <Th className="w-48">Actions</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -59,12 +59,12 @@ export function Submissions() {
             <Table>
               <Thead>
                 <Tr>
-                  <Th>Examination</th>
-                  <th>Class · Subject</th>
-                  <Th className="w-40">Students</th>
-                  <Th className="w-40">Submitted</th>
-                  <Th className="w-40">Status</th>
-                  <Th className="w-48">Actions</th>
+                  <Th>Examination</Th>
+                  <Th>Class · Subject</Th>
+                  <Th className="w-40">Students</Th>
+                  <Th className="w-40">Submitted</Th>
+                  <Th className="w-40">Status</Th>
+                  <Th className="w-48">Actions</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -123,7 +123,7 @@ function HistRow({ title, desc, time, status }: { title: string; desc: string; t
 export function Notifications() {
   return (
     <div className="space-y-6">
-      <RolePageHeader title="Notifications" description="Deadlines, submission confirmations and returned corrections." action={<Button variant="outline" size="sm">Mark all as read</Button>} />
+      <RolePageHeader title="Notifications" description="Deadlines, submission confirmations and returned corrections." action={<Button variant="ghost" size="sm">Mark all as read</Button>} />
       <Card>
         <CardHeader><CardTitle>Notifications</CardTitle></CardHeader>
         <CardContent className="pt-0">

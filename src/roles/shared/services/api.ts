@@ -31,6 +31,8 @@ import type {
   MarksEntrySession,
   MarkInput,
   RoleScope,
+  SchoolClassView,
+  StreamView,
 } from '../types';
 import { demoStudents as seededStudents, demoTeachers as seededTeachers, demoSessions as seededSessions, demoMarks as seededMarks } from './mockData';
 import {
@@ -47,7 +49,7 @@ import {
   request,
   authHeaders,
   resetDemoStore,
-} from '../../super-admin/services/api';
+} from '../../../super-admin/services/api';
 
 const BASE = import.meta.env.VITE_API_URL || '/api';
 
@@ -107,7 +109,7 @@ export const studentService = {
           );
         }
         if (params?.scope?.schoolId) {
-          result = result.filter((s) => s.schoolId === params.scope.schoolId);
+          result = result.filter((s) => s.schoolId === params.scope!.schoolId);
         }
         const page = Math.max(1, params?.page ?? 1);
         const pageSize = Math.max(1, params?.pageSize ?? 25);
@@ -138,8 +140,8 @@ export const studentService = {
       setTimeout(() => {
         const idx = demoStudents.findIndex((s) => s.id === id);
         if (idx === -1) return resolve(null);
-        demoStudents[idx] = { ...demoStudents[idx], ...data, updatedAt: new Date().toISOString() };
-        resolve(demoStudents[idx]);
+        demoStudents[idx] = { ...demoStudents[idx], ...data, updatedAt: new Date().toISOString() } as Student;
+        resolve(demoStudents[idx] ?? null);
       }, 400);
     }),
 };
@@ -156,7 +158,7 @@ export const teacherService = {
       setTimeout(() => {
         let result = [...demoTeachers];
         if (params?.scope?.schoolId) {
-          result = result.filter((t) => t.schoolId === params.schoolId);
+          result = result.filter((t) => t.schoolId === params.scope!.schoolId);
         }
         const page = Math.max(1, params?.page ?? 1);
         const pageSize = Math.max(1, params?.pageSize ?? 25);
@@ -277,7 +279,7 @@ export const marksService = {
       setTimeout(() => {
         let result = [...demoSessions];
         if (params?.scope?.schoolId) {
-          result = result.filter((s) => s.schoolId === params.scope.schoolId);
+          result = result.filter((s) => s.schoolId === params.scope!.schoolId);
         }
         const page = Math.max(1, params?.page ?? 1);
         const pageSize = Math.max(1, params?.pageSize ?? 25);
@@ -323,7 +325,7 @@ export const marksService = {
         }
       }, 600);
     }),
-  createSession: (data: Omit<MarksEntrySession, 'id' | 'createdAt' | 'updatedAt' | ...(['totalStudents','enteredCount','submittedCount','missingCount','invalidCount'] as const)>): Promise<MarksEntrySession> =>
+  createSession: (data: Omit<MarksEntrySession, 'id' | 'createdAt' | 'updatedAt'>): Promise<MarksEntrySession> =>
     new Promise((resolve) => {
       setTimeout(() => {
         const s: MarksEntrySession = {

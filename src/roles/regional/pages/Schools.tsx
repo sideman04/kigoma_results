@@ -41,14 +41,14 @@ export default function Schools() {
       />
 
       <div className="flex gap-3 mb-4">
-        <Select value={ownership} onChange={(e) => setOwnership(e.target.value)} className="w-64">
+        <Select value={ownership} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setOwnership(e.target.value)} className="w-64">
           <Option value="">All ownership</Option>
           <Option value="government">Government</Option>
           <Option value="private">Private</Option>
           <Option value="faith_based">Faith-based</Option>
           <Option value="community">Community</Option>
         </Select>
-        <Input placeholder="Search schools…" value={search} onChange={(e) => setSearch(e.target.value)} className="w-80" />
+        <Input placeholder="Search schools…" value={search} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)} className="w-80" />
       </div>
 
       <Card>

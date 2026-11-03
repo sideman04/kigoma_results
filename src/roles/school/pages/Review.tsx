@@ -13,7 +13,7 @@ export default function Review() {
       <RolePageHeader
         title="School-level review"
         description="Review submitted marks before forwarding to the council for verification."
-        action={<Button variant="outline" size="sm"><ClipboardList className="mr-1 h-4 w-4" /> View all submissions</Button>}
+        action={<Button variant="ghost" size="sm"><ClipboardList className="mr-1 h-4 w-4" /> View all submissions</Button>}
       />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
@@ -30,12 +30,12 @@ export default function Review() {
             <Table>
               <Thead>
                 <Tr>
-                  <Th>Examination</th>
-                  <th>Class · Subject</th>
-                  <Th className="w-32">Teacher</th>
-                  <Th className="w-40">Status</th>
-                  <Th className="w-32">Issues</th>
-                  <Th className="w-56">Actions</th>
+                  <Th>Examination</Th>
+                  <Th>Class · Subject</Th>
+                  <Th className="w-32">Teacher</Th>
+                  <Th className="w-40">Status</Th>
+                  <Th className="w-32">Issues</Th>
+                  <Th className="w-56">Actions</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -46,7 +46,7 @@ export default function Review() {
                   <td className="td"><Badge variant="warning" size="sm">Submitted</Badge></td>
                   <td className="td text-sm text-neutral-600">0</td>
                   <td className="td">
-                    <Button variant="outline" size="sm">Review</Button>
+                    <Button variant="ghost" size="sm">Review</Button>
                     <Button variant="ghost" size="sm"><Check size={16} /></Button>
                   </td>
                 </tr>
@@ -57,7 +57,7 @@ export default function Review() {
                   <td className="td"><Badge variant="danger" size="sm">Returned</Badge></td>
                   <td className="td text-sm text-neutral-600">2</td>
                   <td className="td">
-                    <Button variant="outline" size="sm">Review</Button>
+                    <Button variant="ghost" size="sm">Review</Button>
                     <Button variant="ghost" size="sm"><AlertCircle size={16} /></Button>
                   </td>
                 </tr>

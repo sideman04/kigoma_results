@@ -17,7 +17,7 @@ export default function CouncilDetail() {
       <RolePageHeader
         title="Council detail"
         description={`Council ${id} — view schools, examination progress and performance within this council.`}
-        action={<Button variant="outline" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> View schools</Button>}
+        action={<Button variant="ghost" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> View schools</Button>}
       />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
@@ -67,13 +67,13 @@ export default function CouncilDetail() {
           <CardHeader><CardTitle>Quick actions</CardTitle></CardHeader>
           <CardContent className="pt-0">
             <div className="space-y-2">
-              <Button variant="outline" size="sm" className="w-full justify-start" onClick={() => navigate(`/regional/councils/${id}/schools`)}>
+              <Button variant="ghost" size="sm" className="w-full justify-start" onClick={() => navigate(`/regional/councils/${id}/schools`)}>
                 <School className="mr-2 h-4 w-4" /> Browse schools
               </Button>
-              <Button variant="outline" size="sm" className="w-full justify-start" onClick={() => navigate('/regional/submissions')}>
+              <Button variant="ghost" size="sm" className="w-full justify-start" onClick={() => navigate('/regional/submissions')}>
                 <ClipboardListIcon /> Submission tracking
               </Button>
-              <Button variant="outline" size="sm" className="w-full justify-start" onClick={() => navigate('/regional/performance')}>
+              <Button variant="ghost" size="sm" className="w-full justify-start" onClick={() => navigate('/regional/performance')}>
                 <BarChart3Icon /> Council performance
               </Button>
             </div>

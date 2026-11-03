@@ -35,12 +35,12 @@ export default function Students() {
       <RolePageHeader
         title="Students"
         description="Student records across schools in Kasulu TC."
-        action={<Button variant="outline" size="sm"><Search className="mr-1 h-4 w-4" /> Search</Button>}
+        action={<Button variant="ghost" size="sm"><Search className="mr-1 h-4 w-4" /> Search</Button>}
       />
 
       <div className="flex gap-3 mb-4">
-        <Input placeholder="Search by name or registration number…" value={search} onChange={(e) => setSearch(e.target.value)} className="w-96" />
-        <Select value={classFilter} onChange={(e) => setClassFilter(e.target.value)} className="w-64">
+        <Input placeholder="Search by name or registration number…" value={search} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)} className="w-96" />
+        <Select value={classFilter} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setClassFilter(e.target.value)} className="w-64">
           <Option value="">All classes</Option>
           <Option value="class-f4">Form 4</Option>
           <Option value="class-f6">Form 6</Option>
@@ -61,7 +61,7 @@ export default function Students() {
                   <Tr>
                     <Th>Reg. number</Th>
                     <Th>Student</Th>
-                    <th>Gender</th>
+                    <Th>Gender</Th>
                     <Th className="w-32">Class</Th>
                     <Th className="w-32">Stream</Th>
                     <Th className="w-32">School</Th>

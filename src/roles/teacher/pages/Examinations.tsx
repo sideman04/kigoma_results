@@ -12,7 +12,7 @@ export default function Examinations() {
       <RolePageHeader
         title="Examinations"
         description="Examinations you are assigned to enter marks for."
-        action={<Button variant="outline" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> View all</Button>}
+        action={<Button variant="ghost" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> View all</Button>}
       />
 
       <Card>
@@ -22,12 +22,12 @@ export default function Examinations() {
             <Table>
               <Thead>
                 <Tr>
-                  <Th>Code</th>
-                  <th>Name</th>
-                  <Th className="w-32">Type</th>
-                  <Th className="w-40">Year / Level</th>
-                  <Th className="w-32">Submission open</th>
-                  <Th className="w-48">Actions</th>
+                  <Th>Code</Th>
+                  <Th>Name</Th>
+                  <Th className="w-32">Type</Th>
+                  <Th className="w-40">Year / Level</Th>
+                  <Th className="w-32">Submission open</Th>
+                  <Th className="w-48">Actions</Th>
                 </Tr>
               </Thead>
               <Tbody>

@@ -3,7 +3,7 @@
  * All paths under /council. Protected by the council_admin role guard in App.jsx.
  */
 
-import RoleLayout from '../../shared/components/RoleLayout';
+import { RoleLayout } from '../shared/components/RoleLayout';
 import Dashboard from './pages/Dashboard';
 import Schools from './pages/Schools';
 import SchoolDetail from './pages/SchoolDetail';
@@ -12,11 +12,8 @@ import Teachers from './pages/Teachers';
 import Examinations from './pages/Examinations';
 import Submissions from './pages/Submissions';
 import Verification from './pages/Verification';
-import Performance from './pages/Performance';
-import Rankings from './pages/Rankings';
-import Reports from './pages/Reports';
-import Notifications from './pages/Notifications';
-import Profile from './pages/Profile';
+import Performance, { Rankings } from './pages/Performance';
+import { Reports, Notifications, Profile } from './pages/Reports';
 
 const COUNCIL_GROUPS = [
   { label: 'Overview', items: [{ to: '/council/dashboard', label: 'Council dashboard', icon: 'LayoutDashboard', exact: true }] },

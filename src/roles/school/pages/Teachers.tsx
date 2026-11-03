@@ -32,7 +32,7 @@ export default function Teachers() {
         action={<Button variant="primary" onClick={() => {}}><Plus size={18} /> Register teacher</Button>}
       />
 
-      <Input placeholder="Search teachers…" value={search} onChange={(e) => setSearch(e.target.value)} className="w-80 mb-4" />
+      <Input placeholder="Search teachers…" value={search} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)} className="w-80 mb-4" />
 
       <Card>
         <CardHeader><CardTitle>Teacher directory</CardTitle></CardHeader>
@@ -47,7 +47,7 @@ export default function Teachers() {
                 <Thead>
                   <Tr>
                     <Th>Teacher</Th>
-                    <th>Employee no.</th>
+                    <Th>Employee no.</Th>
                     <Th className="w-40">Subjects</Th>
                     <Th className="w-40">Classes</Th>
                     <Th className="w-32">Status</Th>

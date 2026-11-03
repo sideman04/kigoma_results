@@ -9,7 +9,7 @@ import { Card, CardHeader, CardTitle, CardContent, Button, Input, Select, Option
 import { RolePageHeader } from '../../shared/components/RoleTopbar';
 import { examinationService, subjectAssignmentService } from '../../shared/services/api';
 import { useToast } from '../../shared/components/ui';
-import { ArrowUp, Clock, School, BookOpen } from 'lucide-react';
+import { ArrowUp, ArrowRight, Clock, School, BookOpen } from 'lucide-react';
 
 const STEPS = [
   { key: 'year', label: 'Academic year' },
@@ -31,10 +31,10 @@ export default function MarksEntry() {
   const [subjects, setSubjects] = useState<any[]>([]);
 
   useEffect(() => {
-    examinationService.list({ pageSize: 100 }).then((res) => setExams(res.data)).catch(() => {});
+    examinationService.list({ pageSize: 100 }).then((res: any) => setExams(res.data)).catch(() => {});
   }, []);
 
-  const current = STEPS[step];
+  const current = STEPS[step]!;
   const disabled = () => {
     switch (current.key) {
       case 'year': return !form.academicYearId;
@@ -95,7 +95,7 @@ export default function MarksEntry() {
           {current.key === 'year' && (
             <div className="space-y-4">
               <p className="text-sm text-neutral-600">Select the academic year for marks entry.</p>
-              <Select value={form.academicYearId} onChange={(e) => setForm({ ...form, academicYearId: e.target.value })} className="w-72">
+              <Select value={form.academicYearId} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm({ ...form, academicYearId: e.target.value })} className="w-72">
                 <Option value="">Select an academic year</Option>
                 <Option value="year-2025">Academic Year 2025</Option>
                 <Option value="year-2024">Academic Year 2024</Option>
@@ -118,7 +118,7 @@ export default function MarksEntry() {
                   </thead>
                   <tbody>
                     {exams.length === 0 ? (
-                      <tr><td colSpan="5" className="td h-20 text-center text-neutral-500">No examinations available.</td></tr>
+                      <tr><td colSpan={5} className="td h-20 text-center text-neutral-500">No examinations available.</td></tr>
                     ) : (
                       exams.map((e) => (
                         <tr key={e.id} className="cursor-pointer hover:bg-green-50 transition-colors" onClick={() => setForm({ ...form, examinationId: e.id })}>
@@ -201,7 +201,7 @@ export default function MarksEntry() {
                   </thead>
                   <tbody>
                     {subjects.length === 0 ? (
-                      <tr><td colSpan="4" className="td h-20 text-center text-neutral-500">No subjects assigned.</td></tr>
+                      <tr><td colSpan={4} className="td h-20 text-center text-neutral-500">No subjects assigned.</td></tr>
                     ) : (
                       subjects.map((s) => (
                         <tr key={s.id} className="cursor-pointer hover:bg-green-50 transition-colors" onClick={() => setForm({ ...form, subjectId: s.id })}>

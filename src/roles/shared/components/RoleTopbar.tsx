@@ -9,16 +9,17 @@ import { useNavigate } from 'react-router-dom';
 import { Search, Bell, User, ChevronDown, LogOut, Mail } from 'lucide-react';
 import { useAuth } from '../../../context/AuthContext';
 import { Button, Input, Badge } from './ui';
-import { cn } from '../../../shared/utils';
+import { cn } from '../utils';
 
 export interface RoleTopbarProps {
   breadcrumbs?: React.ReactNode;
   title?: string;
   description?: string;
   showSearch?: boolean;
+  onMenuClick?: () => void;
 }
 
-export function RoleTopbar({ breadcrumbs, title, description, showSearch = true }: RoleTopbarProps) {
+export function RoleTopbar({ breadcrumbs, title, description, showSearch = true, onMenuClick }: RoleTopbarProps) {
   const auth = useAuth() as any;
   const user = auth.user;
   const signOut = auth.signOut;
@@ -36,8 +37,9 @@ export function RoleTopbar({ breadcrumbs, title, description, showSearch = true 
       <div className="px-6 py-3 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-4 md:gap-6">
           <button
-            className="topbar-menu hidden md:hidden inline-flex items-center justify-center rounded-md p-2 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
+            className="mobile-menu-button items-center justify-center rounded-lg p-2 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
             aria-label="Open navigation"
+            onClick={onMenuClick}
           >
             <MenuIcon className="h-5 w-5" />
           </button>
@@ -89,9 +91,9 @@ export function RoleTopbar({ breadcrumbs, title, description, showSearch = true 
                 <User className="h-4 w-4 text-white" />
               </div>
               <div className="user-info hidden sm:flex flex-col leading-tight">
-                <span className="text-xs font-semibold text-neutral-900">{user?.fullName || 'User'}</span>
+                <span className="text-xs font-semibold text-neutral-900">{user?.fullName || user?.name || 'User'}</span>
                 <span className="text-[10px] text-green-700 font-medium">
-                  {(user?.role?.replace('_', ' ') || 'User')?.replace(/\b\w/g, (c) => c.toUpperCase())}
+                  {(user?.role?.replace('_', ' ') || 'User')?.replace(/\b\w/g, (c: string) => c.toUpperCase())}
                 </span>
                 {user?.scopeLabel && (
                   <span className="text-[10px] text-neutral-500">{user.scopeLabel}</span>
@@ -107,7 +109,7 @@ export function RoleTopbar({ breadcrumbs, title, description, showSearch = true 
                     <User className="h-5 w-5 text-white" />
                   </div>
                   <div className="flex flex-col leading-tight">
-                    <span className="text-sm font-semibold text-neutral-900">{user?.fullName || 'User'}</span>
+                    <span className="text-sm font-semibold text-neutral-900">{user?.fullName || user?.name || 'User'}</span>
                     <span className="text-[10px] text-neutral-500">{user?.username || 'user'}</span>
                   </div>
                 </div>

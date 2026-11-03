@@ -29,10 +29,10 @@ export default function Teachers() {
       <RolePageHeader
         title="Teachers"
         description="Teachers across council schools."
-        action={<Button variant="outline" size="sm"><Search className="mr-1 h-4 w-4" /> Search</Button>}
+        action={<Button variant="ghost" size="sm"><Search className="mr-1 h-4 w-4" /> Search</Button>}
       />
 
-      <Input placeholder="Search teachers…" value={search} onChange={(e) => setSearch(e.target.value)} className="w-80 mb-4" />
+      <Input placeholder="Search teachers…" value={search} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)} className="w-80 mb-4" />
 
       <Card>
         <CardHeader><CardTitle>Teacher directory</CardTitle></CardHeader>
@@ -47,7 +47,7 @@ export default function Teachers() {
                 <Thead>
                   <Tr>
                     <Th>Teacher</Th>
-                    <th>Employee no.</th>
+                    <Th>Employee no.</Th>
                     <Th className="w-32">School</Th>
                     <Th className="w-40">Subjects</Th>
                     <Th className="w-32">Classes</Th>

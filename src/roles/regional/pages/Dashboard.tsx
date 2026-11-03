@@ -42,7 +42,7 @@ export default function RegionalDashboard() {
       <RolePageHeader
         title="Regional Dashboard"
         description="Command centre for Kigoma Region. Monitor councils, schools, examinations and submissions within your assigned region."
-        action={<Button variant="outline" size="sm">View all reports</Button>}
+        action={<Button variant="ghost" size="sm">View all reports</Button>}
       />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
@@ -139,7 +139,7 @@ export default function RegionalDashboard() {
                 </thead>
                 <tbody>
                   {councils.length === 0 ? (
-                    <tr><td colSpan="6" className="td h-24 text-center text-neutral-500">No councils found.</td></tr>
+                    <tr><td colSpan={6} className="td h-24 text-center text-neutral-500">No councils found.</td></tr>
                   ) : (
                     councils.map((c) => (
                       <tr key={c.id} className="hover:bg-neutral-50/50">

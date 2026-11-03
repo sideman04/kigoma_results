@@ -17,10 +17,10 @@ export default function Examinations() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    examinationService.list({ pageSize: 100 }).then((res) => {
+    examinationService.list({ pageSize: 100 }).then((res: any) => {
       setExams(res.data);
       setLoading(false);
-    }).catch((err) => toast({ title: 'Failed to load examinations', description: err instanceof Error ? err.message : '', variant: 'default' }));
+    }).catch((err: any) => toast({ title: 'Failed to load examinations', description: err instanceof Error ? err.message : '', variant: 'default' }));
   }, [toast]);
 
   return (

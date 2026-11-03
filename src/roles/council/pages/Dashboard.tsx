@@ -5,7 +5,7 @@
 
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Card, CardHeader, CardTitle, CardContent, Button } from '../../shared/components/ui';
+import { Card, CardHeader, CardTitle, CardContent, Button, Badge } from '../../shared/components/ui';
 import { RolePageHeader } from '../../shared/components/RoleTopbar';
 import { StatCard } from '../../shared/components/StatCard';
 import { StatusBadge } from '../../shared/components/StatusBadge';
@@ -33,7 +33,7 @@ export default function CouncilDashboard() {
       <RolePageHeader
         title="Council Dashboard"
         description="Command centre for Kasulu TC. Monitor schools, examinations and submissions within your assigned council."
-        action={<Button variant="outline" size="sm">View all reports</Button>}
+        action={<Button variant="ghost" size="sm">View all reports</Button>}
       />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
@@ -121,7 +121,7 @@ export default function CouncilDashboard() {
                 </thead>
                 <tbody>
                   {schools.length === 0 ? (
-                    <tr><td colSpan="6" className="td h-24 text-center text-neutral-500">No schools found.</td></tr>
+                    <tr><td colSpan={6} className="td h-24 text-center text-neutral-500">No schools found.</td></tr>
                   ) : (
                     schools.map((s) => (
                       <tr key={s.id} className="hover:bg-neutral-50/50">

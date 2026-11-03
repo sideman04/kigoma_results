@@ -3,9 +3,9 @@
  */
 
 import { useEffect, useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Table, Thead, Tbody, Tr, Th, Td, Select, Option } from '../../shared/components/ui';
+import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Table, Thead, Tbody, Tr, Th, Td, Select, Option, StatCard } from '../../shared/components/ui';
 import { RolePageHeader } from '../../shared/components/RoleTopbar';
-import { submissionService } from '../../shared/services/api';
+import { marksService } from '../../shared/services/api';
 import { useToast } from '../../shared/components/ui';
 import { ArrowUp, Filter, Eye } from 'lucide-react';
 
@@ -16,10 +16,10 @@ export default function MarksMonitoring() {
   const [statusFilter, setStatusFilter] = useState('');
 
   useEffect(() => {
-    submissionService.listSessions({ pageSize: 100 }).then((res) => {
+    marksService.listSessions({ pageSize: 100 }).then((res: any) => {
       setSessions(res.data);
       setLoading(false);
-    }).catch((err) => toast({ title: 'Failed to load sessions', description: err instanceof Error ? err.message : '', variant: 'default' }));
+    }).catch((err: any) => toast({ title: 'Failed to load sessions', description: err instanceof Error ? err.message : '', variant: 'default' }));
   }, [toast]);
 
   const statuses = ['draft', 'entered', 'submitted', 'returned', 'verified'];
@@ -30,7 +30,7 @@ export default function MarksMonitoring() {
       <RolePageHeader
         title="Marks monitoring"
         description="Monitor marks entry progress across classes, streams and subjects at your school."
-        action={<Button variant="outline" size="sm"><Filter className="mr-1 h-4 w-4" /> Filter</Button>}
+        action={<Button variant="ghost" size="sm"><Filter className="mr-1 h-4 w-4" /> Filter</Button>}
       />
 
       <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-4">
@@ -42,7 +42,7 @@ export default function MarksMonitoring() {
         <StatCard title="Entered" value={filtered.reduce((a, s) => a + s.enteredCount, 0)} tone="blue" />
       </div>
 
-      <Select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="w-64 mb-4">
+      <Select value={statusFilter} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setStatusFilter(e.target.value)} className="w-64 mb-4">
         <Option value="">All statuses</Option>
         {statuses.map((s) => <Option key={s} value={s}>{s.replace('_', ' ')}</Option>)}
       </Select>
@@ -59,13 +59,13 @@ export default function MarksMonitoring() {
               <Table>
                 <Thead>
                   <Tr>
-                    <Th>Examination</th>
-                    <th>Class</th>
-                    <Th className="w-32">Subject</th>
-                    <Th className="w-32">Teacher</th>
-                    <Th className="w-32">Status</th>
-                    <Th className="w-40">Progress</th>
-                    <Th className="w-48">Actions</th>
+                    <Th>Examination</Th>
+                    <Th>Class</Th>
+                    <Th className="w-32">Subject</Th>
+                    <Th className="w-32">Teacher</Th>
+                    <Th className="w-32">Status</Th>
+                    <Th className="w-40">Progress</Th>
+                    <Th className="w-48">Actions</Th>
                   </Tr>
                 </Thead>
                 <Tbody>

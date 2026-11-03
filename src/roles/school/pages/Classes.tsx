@@ -30,12 +30,12 @@ export default function Classes() {
             <Table>
               <Thead>
                 <Tr>
-                  <Th>Class</th>
-                  <th>Code</th>
-                  <Th className="w-40">Level</th>
-                  <Th className="w-32">Students</th>
-                  <Th className="w-32">Streams</th>
-                  <Th className="w-48">Actions</th>
+                  <Th>Class</Th>
+                  <Th>Code</Th>
+                  <Th className="w-40">Level</Th>
+                  <Th className="w-32">Students</Th>
+                  <Th className="w-32">Streams</Th>
+                  <Th className="w-48">Actions</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -45,7 +45,7 @@ export default function Classes() {
                   <td className="td text-sm text-neutral-600">O-Level</td>
                   <td className="td text-sm text-neutral-600">35</td>
                   <td className="td text-sm text-neutral-600">2</td>
-                  <td className="td"><Button variant="outline" size="sm" onClick={() => navigateTo('/school/classes/class-f1')}>View</Button></td>
+                  <td className="td"><Button variant="ghost" size="sm" onClick={() => navigateTo('/school/classes/class-f1')}>View</Button></td>
                 </tr>
                 <tr className="hover:bg-neutral-50/50">
                   <td className="td">Form 2</td>
@@ -53,7 +53,7 @@ export default function Classes() {
                   <td className="td text-sm text-neutral-600">O-Level</td>
                   <td className="td text-sm text-neutral-600">36</td>
                   <td className="td text-sm text-neutral-600">2</td>
-                  <td className="td"><Button variant="outline" size="sm" onClick={() => navigateTo('/school/classes/class-f2')}>View</Button></td>
+                  <td className="td"><Button variant="ghost" size="sm" onClick={() => navigateTo('/school/classes/class-f2')}>View</Button></td>
                 </tr>
                 <tr className="hover:bg-neutral-50/50">
                   <td className="td">Form 3</td>
@@ -61,7 +61,7 @@ export default function Classes() {
                   <td className="td text-sm text-neutral-600">O-Level</td>
                   <td className="td text-sm text-neutral-600">35</td>
                   <td className="td text-sm text-neutral-600">2</td>
-                  <td className="td"><Button variant="outline" size="sm" onClick={() => navigateTo('/school/classes/class-f3')}>View</Button></td>
+                  <td className="td"><Button variant="ghost" size="sm" onClick={() => navigateTo('/school/classes/class-f3')}>View</Button></td>
                 </tr>
                 <tr className="hover:bg-neutral-50/50 bg-green-25">
                   <td className="td">Form 4</td>
@@ -69,7 +69,7 @@ export default function Classes() {
                   <td className="td text-sm text-neutral-600">O-Level</td>
                   <td className="td text-sm text-neutral-600 font-semibold">34</td>
                   <td className="td text-sm text-neutral-600 font-semibold">2</td>
-                  <td className="td"><Button variant="outline" size="sm" onClick={() => navigateTo('/school/classes/class-f4')}>View</Button></td>
+                  <td className="td"><Button variant="ghost" size="sm" onClick={() => navigateTo('/school/classes/class-f4')}>View</Button></td>
                 </tr>
               </Tbody>
             </Table>

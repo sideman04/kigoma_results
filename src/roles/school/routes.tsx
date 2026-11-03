@@ -3,7 +3,7 @@
  * All paths under /school. Protected by the school_admin role guard in App.jsx.
  */
 
-import RoleLayout from '../../shared/components/RoleLayout';
+import { RoleLayout } from '../shared/components/RoleLayout';
 import Dashboard from './pages/Dashboard';
 import SchoolProfile from './pages/SchoolProfile';
 import Students from './pages/Students';
@@ -14,9 +14,7 @@ import Subjects from './pages/Subjects';
 import Examinations from './pages/Examinations';
 import MarksMonitoring from './pages/MarksMonitoring';
 import Review from './pages/Review';
-import Reports from './pages/Reports';
-import Notifications from './pages/Notifications';
-import Profile from './pages/Profile';
+import { Reports, Notifications, Profile } from './pages/Reports';
 
 const SCHOOL_GROUPS = [
   { label: 'Overview', items: [{ to: '/school/dashboard', label: 'School dashboard', icon: 'LayoutDashboard', exact: true }] },

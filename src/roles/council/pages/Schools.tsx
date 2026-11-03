@@ -34,7 +34,7 @@ export default function Schools() {
         action={<Button variant="primary" onClick={() => navigate('/super-admin/organization/schools')}>Manage schools (Super Admin)</Button>}
       />
 
-      <Input placeholder="Search schools…" value={search} onChange={(e) => setSearch(e.target.value)} className="w-80 mb-4" />
+      <Input placeholder="Search schools…" value={search} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)} className="w-80 mb-4" />
 
       <Card>
         <CardHeader><CardTitle>School directory</CardTitle></CardHeader>

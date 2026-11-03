@@ -3,7 +3,7 @@
  */
 
 import { useEffect, useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Table, Thead, Tbody, Tr, Th, Td, EmptyState } from '../../shared/components/ui';
+import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Table, Thead, Tbody, Tr, Th, Td, EmptyState, Select, Option, StatCard } from '../../shared/components/ui';
 import { RolePageHeader } from '../../shared/components/RoleTopbar';
 import { notificationService } from '../../shared/services/api';
 import { useToast } from '../../shared/components/ui';
@@ -16,10 +16,10 @@ export default function Notifications() {
   const [filter, setFilter] = useState<'all' | 'unread' | 'read'>('all');
 
   useEffect(() => {
-    notificationService.list().then((data) => {
+    notificationService.list().then((data: any) => {
       setNotifications(data);
       setLoading(false);
-    }).catch((err) => toast({ title: 'Failed to load notifications', description: err instanceof Error ? err.message : '', variant: 'default' }));
+    }).catch((err: any) => toast({ title: 'Failed to load notifications', description: err instanceof Error ? err.message : '', variant: 'default' }));
   }, [toast]);
 
   const unreadCount = notifications.filter((n) => !n.read).length;
@@ -30,7 +30,7 @@ export default function Notifications() {
       <RolePageHeader
         title="Notifications"
         description="Regional alerts — council submissions, examination deadlines and verification updates."
-        action={<Button variant="outline" size="sm">Mark all as read</Button>}
+        action={<Button variant="ghost" size="sm">Mark all as read</Button>}
       />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
@@ -39,7 +39,7 @@ export default function Notifications() {
         <StatCard title="Read" value={notifications.filter((n) => n.read).length} tone="green" />
       </div>
 
-      <Select value={filter} onChange={(e) => setFilter(e.target.value as any)} className="w-64 mb-4">
+      <Select value={filter} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFilter(e.target.value as any)} className="w-64 mb-4">
         <Option value="all">All</Option>
         <Option value="unread">Unread</Option>
         <Option value="read">Read</Option>
@@ -55,7 +55,7 @@ export default function Notifications() {
           ) : (
             <div className="overflow-auto rounded-lg border border-neutral-200 bg-white">
               <Table>
-                <Thead><Tr><Th>Title</th><Th>Category</th><Th className="w-32">Status</Th><Th className="w-40">When</Th><Th className="w-48">Actions</Th></Tr></Thead>
+                <Thead><Tr><Th>Title</Th><Th>Category</Th><Th className="w-32">Status</Th><Th className="w-40">When</Th><Th className="w-48">Actions</Th></Tr></Thead>
                 <Tbody>
                   {filtered.map((n) => (
                     <Tr key={n.id} className={!n.read ? 'bg-green-25 hover:bg-neutral-50/50' : 'hover:bg-neutral-50/50'}>

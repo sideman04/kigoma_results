@@ -22,12 +22,12 @@ export default function Subjects() {
             <Table>
               <Thead>
                 <Tr>
-                  <Th>Code</th>
-                  <th>Subject</th>
-                  <Th className="w-40">Level</th>
-                  <Th className="w-32">Rule</th>
-                  <Th className="w-32">Max mark</th>
-                  <Th className="w-32">Status</th>
+                  <Th>Code</Th>
+                  <Th>Subject</Th>
+                  <Th className="w-40">Level</Th>
+                  <Th className="w-32">Rule</Th>
+                  <Th className="w-32">Max mark</Th>
+                  <Th className="w-32">Status</Th>
                 </Tr>
               </Thead>
               <Tbody>

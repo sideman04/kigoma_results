@@ -13,7 +13,7 @@ export default function Performance() {
       <RolePageHeader
         title="Council performance"
         description="Academic performance monitoring within Kasulu TC. Demo data only."
-        action={<Button variant="outline" size="sm"><BarChart3 className="mr-1 h-4 w-4" /> View analytics</Button>}
+        action={<Button variant="ghost" size="sm"><BarChart3 className="mr-1 h-4 w-4" /> View analytics</Button>}
       />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
@@ -68,7 +68,7 @@ export function Rankings() {
       <RolePageHeader
         title="Council rankings"
         description="School rankings within Kasulu TC."
-        action={<Button variant="outline" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> Export</Button>}
+        action={<Button variant="ghost" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> Export</Button>}
       />
       <Card>
         <CardHeader><CardTitle>Council school rankings</CardTitle></CardHeader>

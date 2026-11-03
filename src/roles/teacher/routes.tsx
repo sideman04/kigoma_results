@@ -3,18 +3,15 @@
  * All paths under /teacher. Protected by the teacher role guard in App.jsx.
  */
 
-import RoleLayout from '../../shared/components/RoleLayout';
+import { RoleLayout } from '../shared/components/RoleLayout';
 import Dashboard from './pages/Dashboard';
 import Classes from './pages/Classes';
 import Subjects from './pages/Subjects';
 import Examinations from './pages/Examinations';
 import MarksEntry from './pages/MarksEntry';
 import MarksEntryDetail from './pages/MarksEntryDetail';
-import Drafts from './pages/Drafts';
-import Submissions from './pages/Submissions';
-import History from './pages/History';
-import Notifications from './pages/Notifications';
-import Profile from './pages/Profile';
+import { Drafts, Submissions, History } from './pages/Notifications';
+import { Notifications, Profile } from './pages/Notifications';
 
 const TEACHER_GROUPS = [
   { label: 'Overview', items: [{ to: '/teacher/dashboard', label: 'Teacher dashboard', icon: 'LayoutDashboard', exact: true }] },

@@ -35,10 +35,10 @@ export default function Submissions() {
       <RolePageHeader
         title="Marks submissions"
         description="Track marks submission progress for schools in the council."
-        action={<Button variant="outline" size="sm"><Filter className="mr-1 h-4 w-4" /> Filter</Button>}
+        action={<Button variant="ghost" size="sm"><Filter className="mr-1 h-4 w-4" /> Filter</Button>}
       />
 
-      <Select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="w-64 mb-4">
+      <Select value={statusFilter} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setStatusFilter(e.target.value)} className="w-64 mb-4">
         <Option value="">All statuses</Option>
         {statuses.map((s) => <Option key={s} value={s}>{s.replace('_', ' ')}</Option>)}
       </Select>
@@ -55,12 +55,12 @@ export default function Submissions() {
               <Table>
                 <Thead>
                   <Tr>
-                    <Th>School</th>
-                    <th>Class</th>
-                    <Th className="w-32">Subject</th>
-                    <Th className="w-32">Status</th>
-                    <Th className="w-32">Missing</th>
-                    <Th className="w-48">Actions</th>
+                    <Th>School</Th>
+                    <Th>Class</Th>
+                    <Th className="w-32">Subject</Th>
+                    <Th className="w-32">Status</Th>
+                    <Th className="w-32">Missing</Th>
+                    <Th className="w-48">Actions</Th>
                   </Tr>
                 </Thead>
                 <Tbody>

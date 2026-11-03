@@ -35,7 +35,7 @@ export default function TeacherDashboard() {
       <RolePageHeader
         title="Teacher Dashboard"
         description="Your assigned classes, subjects and marks-entry work. Elias Mrisho — Lakeview Secondary School."
-        action={<Button variant="outline" size="sm">View my subjects</Button>}
+        action={<Button variant="ghost" size="sm">View my subjects</Button>}
       />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">

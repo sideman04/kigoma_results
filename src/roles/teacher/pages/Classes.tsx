@@ -12,7 +12,7 @@ export default function Classes() {
       <RolePageHeader
         title="My classes"
         description="Classes assigned to you at Lakeview Secondary School."
-        action={<Button variant="outline" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> View all</Button>}
+        action={<Button variant="ghost" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> View all</Button>}
       />
 
       <Card>
@@ -22,12 +22,12 @@ export default function Classes() {
             <Table>
               <Thead>
                 <Tr>
-                  <Th>Class</th>
-                  <th>Code</th>
-                  <Th className="w-40">Level</th>
-                  <Th className="w-32">Students</th>
-                  <Th className="w-32">Streams</th>
-                  <Th className="w-48">Actions</th>
+                  <Th>Class</Th>
+                  <Th>Code</Th>
+                  <Th className="w-40">Level</Th>
+                  <Th className="w-32">Students</Th>
+                  <Th className="w-32">Streams</Th>
+                  <Th className="w-48">Actions</Th>
                 </Tr>
               </Thead>
               <Tbody>

@@ -13,8 +13,20 @@ import ResultsCentres from './pages/results/ResultsCentres';
 import CentreResults from './pages/results/CentreResults';
 import CandidateResult from './pages/results/CandidateResult';
 import { superAdminRoutes } from './super-admin/routes';
+import { regionalRoutes } from './roles/regional/routes';
+import { councilRoutes } from './roles/council/routes';
+import { schoolRoutes } from './roles/school/routes';
+import { teacherRoutes } from './roles/teacher/routes';
 
-const superAdminRoute = superAdminRoutes[0];
+const superAdminRoute = superAdminRoutes[0]!;
+const regionalRoute = regionalRoutes[0]!;
+const councilRoute = councilRoutes[0]!;
+const schoolRoute = schoolRoutes[0]!;
+const teacherRoute = teacherRoutes[0]!;
+
+const roleGuard = (roles: string[]) => (
+  <ProtectedRoute roles={roles}><Outlet /></ProtectedRoute>
+);
 
 export default function App() {
   return (
@@ -47,9 +59,65 @@ export default function App() {
       </Route>
 
       {/* Super Administrator pages (super_admin role only) */}
-      <Route element={<ProtectedRoute roles={['super_admin']}><Outlet /></ProtectedRoute>}>
+      <Route element={roleGuard(['super_admin'])}>
         <Route path={superAdminRoute.path} element={superAdminRoute.element}>
           {superAdminRoute.children.map((child) => (
+            <Route
+              key={child.path ?? 'index'}
+              path={child.path}
+              index={child.index}
+              element={child.element}
+            />
+          ))}
+        </Route>
+      </Route>
+
+      {/* Regional Administrator */}
+      <Route element={roleGuard(['regional_admin', 'super_admin'])}>
+        <Route path={regionalRoute.path} element={regionalRoute.element}>
+          {regionalRoute.children.map((child) => (
+            <Route
+              key={child.path ?? 'index'}
+              path={child.path}
+              index={child.index}
+              element={child.element}
+            />
+          ))}
+        </Route>
+      </Route>
+
+      {/* Council / District Administrator */}
+      <Route element={roleGuard(['council_admin', 'super_admin'])}>
+        <Route path={councilRoute.path} element={councilRoute.element}>
+          {councilRoute.children.map((child) => (
+            <Route
+              key={child.path ?? 'index'}
+              path={child.path}
+              index={child.index}
+              element={child.element}
+            />
+          ))}
+        </Route>
+      </Route>
+
+      {/* School Administrator */}
+      <Route element={roleGuard(['school_admin', 'super_admin'])}>
+        <Route path={schoolRoute.path} element={schoolRoute.element}>
+          {schoolRoute.children.map((child) => (
+            <Route
+              key={child.path ?? 'index'}
+              path={child.path}
+              index={child.index}
+              element={child.element}
+            />
+          ))}
+        </Route>
+      </Route>
+
+      {/* Teacher */}
+      <Route element={roleGuard(['teacher', 'super_admin'])}>
+        <Route path={teacherRoute.path} element={teacherRoute.element}>
+          {teacherRoute.children.map((child) => (
             <Route
               key={child.path ?? 'index'}
               path={child.path}

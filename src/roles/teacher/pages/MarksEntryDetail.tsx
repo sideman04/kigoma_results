@@ -6,7 +6,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Input, Separator } from '../../shared/components/ui';
+import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Input, Separator, Table, Thead, Tbody, Tr, Th, Td } from '../../shared/components/ui';
 import { RolePageHeader } from '../../shared/components/RoleTopbar';
 import { StatCard } from '../../shared/components/StatCard';
 import { StatusBadge } from '../../shared/components/StatusBadge';
@@ -175,8 +175,8 @@ export default function MarksEntryDetail() {
                       <Td>
                         <Input
                           value={row.mark === null ? '' : String(row.mark)}
-                          onChange={(e) => onMarkChange(row.studentId, e.target.value)}
-                          onBlur={(e) => setRows((prev) => prev.map((r) => r.studentId === row.studentId ? { ...r, touched: true } : r))}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => onMarkChange(row.studentId, e.target.value)}
+                          onBlur={(e: React.ChangeEvent<HTMLInputElement>) => setRows((prev) => prev.map((r) => r.studentId === row.studentId ? { ...r, touched: true } : r))}
                           type="number"
                           min="0"
                           max={String(MAX_MARK)}
@@ -219,7 +219,7 @@ export default function MarksEntryDetail() {
           )}
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={saveDraft} disabled={saving} isLoading={saving}>
+          <Button variant="ghost" size="sm" onClick={saveDraft} disabled={saving} isLoading={saving}>
             <Save className="mr-2 h-4 w-4" /> Save draft
           </Button>
           <Button variant="primary" size="sm" onClick={submitMarks} disabled={submitting || !canSubmit} isLoading={submitting}>

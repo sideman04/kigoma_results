@@ -27,7 +27,7 @@ export default function SchoolDashboard() {
       <RolePageHeader
         title="School Dashboard"
         description="Command centre for Lakeview Secondary School. Manage students, teachers, classes, subjects and marks within your assigned school."
-        action={<Button variant="outline" size="sm">View all reports</Button>}
+        action={<Button variant="ghost" size="sm">View all reports</Button>}
       />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
@@ -95,13 +95,13 @@ export default function SchoolDashboard() {
               <Button variant="primary" size="sm" className="w-full justify-start" onClick={() => navigate('/school/marks-monitoring')}>
                 <ClipboardList className="mr-2 h-4 w-4" /> Marks monitoring
               </Button>
-              <Button variant="outline" size="sm" className="w-full justify-start" onClick={() => navigate('/school/students')}>
+              <Button variant="ghost" size="sm" className="w-full justify-start" onClick={() => navigate('/school/students')}>
                 <Users className="mr-2 h-4 w-4" /> Manage students
               </Button>
-              <Button variant="outline" size="sm" className="w-full justify-start" onClick={() => navigate('/school/teachers')}>
+              <Button variant="ghost" size="sm" className="w-full justify-start" onClick={() => navigate('/school/teachers')}>
                 <UserCircleIcon /> Manage teachers
               </Button>
-              <Button variant="outline" size="sm" className="w-full justify-start" onClick={() => navigate('/school/review')}>
+              <Button variant="ghost" size="sm" className="w-full justify-start" onClick={() => navigate('/school/review')}>
                 <CheckIcon /> School-level review
               </Button>
             </div>

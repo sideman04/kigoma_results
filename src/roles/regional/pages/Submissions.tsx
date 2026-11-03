@@ -4,7 +4,7 @@
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Select, Option } from '../../shared/components/ui';
+import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Select, Option, StatCard, StatusBadge } from '../../shared/components/ui';
 import { RolePageHeader } from '../../shared/components/RoleTopbar';
 import { submissionService, examinationService } from '../../shared/services/api';
 import { useToast } from '../../shared/components/ui';
@@ -50,7 +50,7 @@ export default function Submissions() {
       <RolePageHeader
         title="Submission tracking"
         description="Monitor marks submission progress across all schools in the region."
-        action={<Button variant="outline" size="sm"><Filter className="mr-1 h-4 w-4" /> Filter</Button>}
+        action={<Button variant="ghost" size="sm"><Filter className="mr-1 h-4 w-4" /> Filter</Button>}
       />
 
       <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-4">
@@ -62,11 +62,11 @@ export default function Submissions() {
       </div>
 
       <div className="flex gap-3 mb-4">
-        <Select value={examFilter} onChange={(e) => setExamFilter(e.target.value)} className="w-72">
+        <Select value={examFilter} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setExamFilter(e.target.value)} className="w-72">
           <Option value="">All examinations</Option>
           {exams.map((e) => <Option key={e.id} value={e.id}>{e.code}</Option>)}
         </Select>
-        <Select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="w-64">
+        <Select value={statusFilter} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setStatusFilter(e.target.value)} className="w-64">
           <Option value="">All statuses</Option>
           {statuses.map((s) => <Option key={s} value={s}>{s.replace('_', ' ')}</Option>)}
         </Select>

@@ -12,7 +12,7 @@ export default function Rankings() {
       <RolePageHeader
         title="Regional rankings"
         description="School and council rankings within Kigoma Region. Demo data only."
-        action={<Button variant="outline" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> Export ranking</Button>}
+        action={<Button variant="ghost" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> Export ranking</Button>}
       />
 
       <Card>

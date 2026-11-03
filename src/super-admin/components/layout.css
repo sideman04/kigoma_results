@@ -1,4 +1,5 @@
-.super-admin-layout {
+.super-admin-layout,
+.role-layout {
   --admin-sidebar: 16rem;
   min-height: 100vh;
   background: #f7f9f8;
@@ -66,8 +67,10 @@
 .mobile-drawer-overlay { display: none; }
 
 @media (min-width: 768px) {
-  .super-admin-layout > .sidebar.w-16 + .layout-main { margin-left: 4rem; }
-  .super-admin-layout > .sidebar.w-16 { width: 4rem !important; }
+  .super-admin-layout > .sidebar.w-16 + .layout-main,
+  .role-layout > .sidebar.w-16 + .layout-main { margin-left: 4rem; }
+  .super-admin-layout > .sidebar.w-16,
+  .role-layout > .sidebar.w-16 { width: 4rem !important; }
 }
 
 @media (max-width: 767px) {

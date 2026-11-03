@@ -3,7 +3,7 @@
  * All paths under /regional. Protected by the regional_admin role guard in App.jsx.
  */
 
-import RoleLayout from '../../shared/components/RoleLayout';
+import { RoleLayout } from '../shared/components/RoleLayout';
 import Dashboard from './pages/Dashboard';
 import Councils from './pages/Councils';
 import CouncilDetail from './pages/CouncilDetail';

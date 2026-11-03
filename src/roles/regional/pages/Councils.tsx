@@ -35,7 +35,7 @@ export default function Councils() {
       />
 
       <div className="flex gap-3 mb-4">
-        <Input placeholder="Search councils…" value={search} onChange={(e) => setSearch(e.target.value)} className="w-80" />
+        <Input placeholder="Search councils…" value={search} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)} className="w-80" />
       </div>
 
       <Card>

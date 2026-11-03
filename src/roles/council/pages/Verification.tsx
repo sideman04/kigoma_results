@@ -12,7 +12,7 @@ export default function Verification() {
       <RolePageHeader
         title="Verification"
         description="Review school submissions before regional sign-off."
-        action={<Button variant="outline" size="sm"><Shield className="mr-1 h-4 w-4" /> View queue</Button>}
+        action={<Button variant="ghost" size="sm"><Shield className="mr-1 h-4 w-4" /> View queue</Button>}
       />
 
       <div className="rounded-lg border border-neutral-100 bg-neutral-50 p-4 mb-6">
@@ -32,12 +32,12 @@ export default function Verification() {
             <Table>
               <Thead>
                 <Tr>
-                  <Th>School</th>
-                  <th>Examination</th>
-                  <Th className="w-40">Candidates</th>
-                  <Th className="w-40">Status</th>
-                  <Th className="w-32">Exceptions</th>
-                  <Th className="w-56">Actions</th>
+                  <Th>School</Th>
+                  <Th>Examination</Th>
+                  <Th className="w-40">Candidates</Th>
+                  <Th className="w-40">Status</Th>
+                  <Th className="w-32">Exceptions</Th>
+                  <Th className="w-56">Actions</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -48,7 +48,7 @@ export default function Verification() {
                   <Td><Badge variant="warning" size="sm">Under review</Badge></Td>
                   <Td className="text-sm text-neutral-600">3</Td>
                   <Td>
-                    <Button variant="outline" size="sm">Review</Button>
+                    <Button variant="ghost" size="sm">Review</Button>
                     <Button variant="ghost" size="sm"><CheckCircle size={16} /></Button>
                   </Td>
                 </Tr>
@@ -59,7 +59,7 @@ export default function Verification() {
                   <Td><Badge variant="danger" size="sm">Returned</Badge></Td>
                   <Td className="text-sm text-neutral-600">12</Td>
                   <Td>
-                    <Button variant="outline" size="sm">Review</Button>
+                    <Button variant="ghost" size="sm">Review</Button>
                     <Button variant="ghost" size="sm"><AlertCircle size={16} /></Button>
                   </Td>
                 </Tr>

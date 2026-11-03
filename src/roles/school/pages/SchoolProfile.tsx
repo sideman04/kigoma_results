@@ -6,14 +6,16 @@ import { Card, CardHeader, CardTitle, CardContent, Button, Badge } from '../../s
 import { RolePageHeader } from '../../shared/components/RoleTopbar';
 import { StatCard } from '../../shared/components/StatCard';
 import { School, Building2, ArrowRight, Users, Clock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function SchoolProfile() {
+  const navigate = useNavigate();
   return (
     <div className="space-y-6">
       <RolePageHeader
         title="School profile"
         description="Lakeview Secondary School — your assigned school."
-        action={<Button variant="outline" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> Manage school (Super Admin)</Button>}
+        action={<Button variant="ghost" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> Manage school (Super Admin)</Button>}
       />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
@@ -50,9 +52,9 @@ export default function SchoolProfile() {
       </div>
 
       <div className="mt-4 flex gap-2">
-        <Button variant="outline" size="sm" onClick={() => navigate('/school/students')}>Manage students</Button>
-        <Button variant="outline" size="sm" onClick={() => navigate('/school/teachers')}>Manage teachers</Button>
-        <Button variant="outline" size="sm" onClick={() => navigate('/school/classes')}>Manage classes</Button>
+        <Button variant="ghost" size="sm" onClick={() => navigate('/school/students')}>Manage students</Button>
+        <Button variant="ghost" size="sm" onClick={() => navigate('/school/teachers')}>Manage teachers</Button>
+        <Button variant="ghost" size="sm" onClick={() => navigate('/school/classes')}>Manage classes</Button>
         <Button variant="ghost" size="sm" onClick={() => navigate(`/super-admin/organization/schools/school-s0101`)}><EditIcon /> Full management (Super Admin)</Button>
       </div>
     </div>

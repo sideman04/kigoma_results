@@ -19,7 +19,7 @@ import type {
   Examination,
   MarksSubmission,
   User,
-} from '../super-admin/types';
+} from '../../super-admin/types';
 
 // -----------------------------------------------------------------------------
 // Shared role-scoped context
@@ -223,6 +223,7 @@ export interface RoleNavItem {
   label: string;
   icon: string;
   exact?: boolean;
+  roles?: RoleId[];
 }
 
 export interface RoleNavGroup {

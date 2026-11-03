@@ -12,7 +12,7 @@ export default function Subjects() {
       <RolePageHeader
         title="My subjects"
         description="Subjects assigned to you at Lakeview Secondary School."
-        action={<Button variant="outline" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> View all</Button>}
+        action={<Button variant="ghost" size="sm"><ArrowRight className="mr-1 h-4 w-4" /> View all</Button>}
       />
 
       <Card>
@@ -22,12 +22,12 @@ export default function Subjects() {
             <Table>
               <Thead>
                 <Tr>
-                  <Th>Code</th>
-                  <th>Subject</th>
-                  <Th className="w-40">Level</th>
-                  <Th className="w-32">Rule</th>
-                  <Th className="w-32">Classes</th>
-                  <Th className="w-48">Actions</th>
+                  <Th>Code</Th>
+                  <Th>Subject</Th>
+                  <Th className="w-40">Level</Th>
+                  <Th className="w-32">Rule</Th>
+                  <Th className="w-32">Classes</Th>
+                  <Th className="w-48">Actions</Th>
                 </Tr>
               </Thead>
               <Tbody>

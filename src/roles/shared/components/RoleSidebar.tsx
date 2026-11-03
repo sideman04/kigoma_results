@@ -31,8 +31,8 @@ import {
   AlertCircle,
   ArrowRight,
 } from 'lucide-react';
-import { cn } from '../../../shared/utils';
-import { useAuth } from '../../../../context/AuthContext';
+import { cn } from '../utils';
+import { useAuth } from '../../../context/AuthContext';
 import type { RoleId, RoleNavGroup } from '../types';
 
 const ICONS: Record<string, React.ElementType> = {
@@ -252,29 +252,7 @@ export function RoleSidebar({ groups, mobileOpen, setMobileOpen, brandName = 'Ki
         </div>
       </aside>
 
-      {/* Mobile hamburger */}
-      <button
-        className="mobile-menu-btn hidden md:hidden inline-flex items-center justify-center rounded-md p-2 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
-        onClick={() => setMobileOpen(true)}
-        aria-label="Open navigation"
-      >
-        <MenuIcon className="h-5 w-5" />
-      </button>
     </>
-  );
-}
-
-function MenuIcon({ className }: { className: string }) {
-  return (
-    <svg
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-    </svg>
   );
 }
 
