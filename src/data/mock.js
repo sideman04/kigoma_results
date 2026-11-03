@@ -44,6 +44,7 @@ export const SCHOOLS = [
 ];
 
 export const USERS = [
+  { username: 'superadmin', password: 'demo1234', name: 'Amina Mbele', role: 'super_admin' },
   { username: 'region', password: 'demo1234', name: 'Neema Kagoma', role: 'regional_admin' },
   { username: 'kasulu', password: 'demo1234', name: 'Hamisi Ntibuka', role: 'council_admin', council: 'Kasulu TC' },
   { username: 'lakeview', password: 'demo1234', name: 'Mwajuma Bakari', role: 'school_admin', schoolId: 1 },

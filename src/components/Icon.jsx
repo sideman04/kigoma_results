@@ -10,6 +10,7 @@ const PATHS = {
   upload: 'M12 16V5M7 9l5-5 5 5M5 20h14',
   plus: 'M12 5v14M5 12h14',
   close: 'M6 6l12 12M18 6L6 18',
+  check: 'M5 12l4 4L19 6',
 };
 
 export default function Icon({ name, size = 20 }) {

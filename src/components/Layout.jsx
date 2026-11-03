@@ -4,12 +4,18 @@ import { useAuth } from '../context/AuthContext';
 import { ROLE_LABELS } from '../utils/scope';
 import Icon from './Icon';
 
-const ALL = ['regional_admin', 'council_admin', 'school_admin', 'teacher'];
+const ALL = ['regional_admin', 'super_admin', 'council_admin', 'school_admin', 'teacher'];
 const NAV = [
-  { to: '/dashboard', label: 'Dashboard', icon: 'grid', roles: ALL, end: true },
-  { to: '/schools', label: 'Schools', icon: 'school', roles: ['regional_admin', 'council_admin'] },
-  { to: '/students', label: 'Students', icon: 'users', roles: ['regional_admin', 'council_admin', 'school_admin'] },
-  { to: '/marks', label: 'Marks entry', icon: 'edit', roles: ['school_admin', 'teacher'] },
+  { to: '/dashboard', label: 'Dashboard', icon: 'grid', roles: ['regional_admin', 'council_admin', 'school_admin', 'teacher'], end: true },
+  { to: '/super-admin', label: 'Overview', icon: 'grid', roles: ['super_admin'], end: true },
+  { to: '/schools', label: 'Schools', icon: 'school', roles: ['regional_admin', 'super_admin', 'council_admin'] },
+  { to: '/students', label: 'Students', icon: 'users', roles: ['regional_admin', 'super_admin', 'council_admin', 'school_admin'] },
+  { to: '/marks', label: 'Marks entry', icon: 'edit', roles: ['super_admin', 'school_admin', 'teacher'] },
+  { to: '/super-admin/verification', label: 'Verification', icon: 'check', roles: ['super_admin'] },
+  { to: '/super-admin/users', label: 'Users & roles', icon: 'users', roles: ['super_admin'] },
+  { to: '/super-admin/subjects', label: 'Subjects', icon: 'school', roles: ['super_admin'] },
+  { to: '/super-admin/reports', label: 'Reports', icon: 'print', roles: ['super_admin'] },
+  { to: '/super-admin/settings', label: 'System settings', icon: 'edit', roles: ['super_admin'] },
 ];
 
 export default function Layout() {
@@ -30,7 +36,7 @@ export default function Layout() {
 
         <nav aria-label="Main">
           {NAV.filter((n) => n.roles.includes(user.role)).map((n) => (
-            <NavLink key={n.to} to={n.to} end={n.end} className="nav-link" onClick={() => setOpen(false)}>
+            <NavLink key={n.to} to={n.to === '/dashboard' && user.role === 'super_admin' ? '/super-admin' : n.to} end={n.end} className="nav-link" onClick={() => setOpen(false)}>
               <Icon name={n.icon} />
               {n.label}
             </NavLink>

@@ -3,6 +3,7 @@ import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const DEMO = [
+  { label: 'Super admin', username: 'superadmin' },
   { label: 'Regional admin', username: 'region' },
   { label: 'Council admin', username: 'kasulu' },
   { label: 'School admin', username: 'lakeview' },
@@ -18,7 +19,7 @@ export default function Login() {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
 
-  if (user) return <Navigate to="/dashboard" replace />;
+  if (user) return <Navigate to={user.role === 'super_admin' ? '/super-admin' : '/dashboard'} replace />;
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -29,8 +30,12 @@ export default function Login() {
     }
     setBusy(true);
     try {
-      await signIn(username, password);
-      navigate(location.state?.from?.pathname || '/dashboard', { replace: true });
+      const signedIn = await signIn(username, password);
+      const from = location.state?.from;
+      const destination = from
+        ? `${from.pathname}${from.search || ''}${from.hash || ''}`
+        : (signedIn.role === 'super_admin' ? '/super-admin' : '/dashboard');
+      navigate(destination, { replace: true });
     } catch (err) {
       setError(err.message);
     } finally {
