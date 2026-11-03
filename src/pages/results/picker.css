@@ -1,0 +1,387 @@
+.exam-picker {
+    --green: #13b933;
+    --green-dark: #07982a;
+    --ink: #273238;
+    --muted: #718087;
+    --line: #e7ecef;
+    min-height: 100vh;
+    background: #f7f9fa;
+    color: var(--ink);
+    font-family: Inter, Arial, Helvetica, sans-serif
+}
+
+.picker-header {
+    height: 72px;
+    background: linear-gradient(110deg, #0fbc35, #12b932);
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(5, 92, 27, .12)
+}
+
+.picker-header-inner {
+    width: min(100% - 48px, 1180px);
+    height: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.picker-title {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 21px;
+    font-weight: 500;
+    letter-spacing: .01em
+}
+
+.picker-title small {
+    display: block;
+    margin-top: 2px;
+    color: #c9f6d0;
+    font-size: 8px;
+    letter-spacing: .16em
+}
+
+.picker-mark {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    color: var(--green-dark);
+    background: #fff;
+    border-radius: 50%;
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: bold
+}
+
+.picker-header nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #d8f7dd;
+    font-size: 14px
+}
+
+.picker-header nav a {
+    color: #fff;
+    text-decoration: none
+}
+
+.picker-header nav a:hover {
+    text-decoration: underline
+}
+
+.picker-main {
+    width: min(100% - 48px, 980px);
+    margin: auto;
+    padding: 44px 0 70px
+}
+
+.picker-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin: 0 auto 38px;
+    color: #9ca8ac;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .06em
+}
+
+.picker-steps span {
+    display: grid;
+    place-items: center;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #c9d2d5;
+    border-radius: 50%;
+    font-weight: bold
+}
+
+.picker-steps span.is-active,
+.picker-steps span.is-done {
+    color: #fff;
+    background: var(--green);
+    border-color: var(--green)
+}
+
+.picker-steps b {
+    font-weight: 700
+}
+
+.picker-steps i {
+    width: 55px;
+    height: 1px;
+    background: #dce3e5
+}
+
+.picker-intro {
+    text-align: center;
+    margin-bottom: 35px
+}
+
+.picker-intro p {
+    margin: 0 0 10px;
+    color: var(--green-dark);
+    font-size: 11px;
+    letter-spacing: .16em;
+    font-weight: 800
+}
+
+.picker-intro h1 {
+    margin: 0 0 10px;
+    color: #263238;
+    font-size: 30px;
+    line-height: 1.15;
+    font-weight: 650;
+    letter-spacing: -.025em
+}
+
+.picker-intro>span {
+    color: var(--muted);
+    font-size: 15px
+}
+
+.exam-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px
+}
+
+.exam-type-cards {
+    grid-template-columns: repeat(2, minmax(0, 390px));
+    justify-content: center
+}
+
+.exam-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 270px;
+    padding: 32px 28px 25px;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 5px 18px rgba(35, 65, 75, .04);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease
+}
+
+.exam-card:hover {
+    border-color: #a7ddb0;
+    box-shadow: 0 12px 28px rgba(35, 100, 50, .11);
+    transform: translateY(-3px)
+}
+
+.exam-icon {
+    display: grid;
+    place-items: center;
+    width: 74px;
+    height: 74px;
+    margin: 0 auto 20px;
+    background: #f4f6f6;
+    border-radius: 38% 45% 38% 45%;
+    transform: rotate(-7deg)
+}
+
+.document-icon {
+    position: relative;
+    display: block;
+    width: 26px;
+    height: 30px;
+    border: 3px solid #40a8ff;
+    border-radius: 2px;
+    transform: rotate(7deg)
+}
+
+.document-icon:before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: -7px;
+    width: 19px;
+    height: 24px;
+    border: 3px solid #40a8ff;
+    border-radius: 2px;
+    background: #f4f6f6
+}
+
+.document-icon i {
+    position: absolute;
+    z-index: 2;
+    left: 4px;
+    width: 12px;
+    height: 2px;
+    background: #40a8ff
+}
+
+.document-icon i:nth-child(1) {
+    top: 8px
+}
+
+.document-icon i:nth-child(2) {
+    top: 14px
+}
+
+.document-icon i:nth-child(3) {
+    top: 20px;
+    width: 8px
+}
+
+.exam-card-copy {
+    flex: 1
+}
+
+.exam-eyebrow {
+    display: block;
+    margin-bottom: 7px;
+    color: #90a0a5;
+    font-size: 10px;
+    letter-spacing: .13em;
+    font-weight: 800
+}
+
+.exam-card h2 {
+    margin: 0 0 8px;
+    color: #454c4f;
+    font-size: 22px;
+    font-weight: 700
+}
+
+.exam-name {
+    max-width: 280px;
+    margin: 0 auto 8px;
+    color: #657378;
+    font-size: 14px;
+    line-height: 1.45
+}
+
+.exam-note {
+    margin: 0 0 18px !important;
+    color: #95a0a4 !important;
+    font-size: 12px !important
+}
+
+.exam-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--green-dark);
+    font-size: 14px;
+    font-weight: 600
+}
+
+.exam-link b {
+    color: #229eff;
+    font-size: 21px;
+    font-weight: 400;
+    transition: transform .18s
+}
+
+.exam-card:hover .exam-link b {
+    transform: translateX(4px)
+}
+
+.picker-back {
+    text-align: center;
+    margin: 32px 0 0
+}
+
+.picker-back a {
+    color: var(--green-dark);
+    font-size: 14px;
+    text-decoration: none
+}
+
+.picker-back a:hover {
+    text-decoration: underline
+}
+
+.picker-footer {
+    padding: 18px 20px;
+    color: #94a0a4;
+    background: #fff;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    font-size: 12px
+}
+
+.picker-footer span {
+    margin: 0 8px;
+    color: #c4ccce
+}
+
+@media(max-width:720px) {
+    .picker-header {
+        height: 64px
+    }
+
+    .picker-header-inner {
+        width: calc(100% - 28px)
+    }
+
+    .picker-title {
+        font-size: 18px
+    }
+
+    .picker-header nav {
+        gap: 7px;
+        font-size: 12px
+    }
+
+    .picker-main {
+        width: calc(100% - 28px);
+        padding: 30px 0 46px
+    }
+
+    .picker-steps {
+        gap: 5px;
+        margin-bottom: 30px;
+        font-size: 9px
+    }
+
+    .picker-steps i {
+        width: 18px
+    }
+
+    .picker-steps b {
+        display: none
+    }
+
+    .picker-intro h1 {
+        font-size: 25px
+    }
+
+    .picker-intro>span {
+        font-size: 14px
+    }
+
+    .exam-cards,
+    .exam-type-cards {
+        grid-template-columns: 1fr;
+        gap: 14px
+    }
+
+    .exam-card {
+        min-height: 240px;
+        padding: 28px 22px
+    }
+
+    .exam-icon {
+        width: 68px;
+        height: 68px;
+        margin-bottom: 16px
+    }
+
+    .picker-footer {
+        font-size: 11px
+    }
+}

@@ -1,0 +1,302 @@
+/* Clean NECTA-style result-sheet layout */
+.result-page {
+  --purple: #800080;
+  --blue: #0000cc;
+  --sky: #add6e3;
+  --paper: #ffffdd;
+  min-height: 100vh;
+  color: var(--purple);
+  background: var(--sky);
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+  line-height: 1.2;
+}
+.result-page a { color: var(--blue); }
+.result-masthead {
+  padding: 6px 8px 2px;
+  font-size: 24px;
+  font-weight: 700;
+}
+.result-page .necta-banner {
+  display: block;
+  padding: 0;
+  background: transparent;
+  color: var(--purple);
+}
+.result-page .necta-brand {
+  display: block;
+  color: var(--purple);
+  font: inherit;
+  text-decoration: none;
+}
+.result-page .regional-mark,
+.result-page .regional-location,
+.result-page .necta-banner-actions { display: none; }
+.result-page .necta-page {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 4px 8px 32px;
+}
+.result-page .centre-intro {
+  margin: 0 0 32px;
+  text-align: left;
+}
+.result-page .necta-kicker {
+  margin: 0 0 12px;
+  color: var(--purple);
+  font-size: 16px;
+  letter-spacing: 0;
+}
+.result-page .necta-title {
+  margin: 0 0 31px;
+  color: var(--purple);
+  font-size: 24px;
+  text-align: left;
+}
+.result-page .necta-centre {
+  margin: 0;
+  color: var(--purple);
+  font-size: 18px;
+  text-align: left;
+}
+.result-page .necta-note {
+  margin: 0;
+  color: var(--purple);
+  text-align: left;
+}
+.result-page .result-stats { display: none; }
+.result-page h3.table-title {
+  margin: 18px 0 3px;
+  color: var(--purple);
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.result-page .table-title span {
+  color: var(--purple);
+  font-size: 16px;
+  font-weight: 400;
+}
+.result-page .necta-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+.result-page .narrow-scroll {
+  width: fit-content;
+  max-width: 100%;
+}
+.result-page .division-scroll .necta-table.narrow { width: 760px; }
+.result-page .summary-scroll .necta-table.narrow { width: 1040px; }
+.result-page .necta-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: separate;
+  border-spacing: 2px;
+  color: #000;
+  font: 12px "Courier New", monospace;
+}
+.result-page .necta-table.narrow {
+  width: auto;
+  min-width: 0;
+}
+.result-page .necta-table th,
+.result-page .necta-table td {
+  padding: 2px 5px;
+  border: 1px solid var(--blue);
+  line-height: 14px;
+  text-align: center;
+  vertical-align: middle;
+}
+.result-page .necta-table th,
+.result-page .necta-table td {
+  background: var(--paper);
+}
+.result-page .necta-table th {
+  font-weight: 700;
+  white-space: nowrap;
+}
+.result-page .necta-table .left { text-align: left; }
+.result-page .necta-table .nowrap { white-space: nowrap; }
+.result-page .necta-table .detail {
+  font-size: 11px;
+  text-align: left;
+}
+.result-page .necta-table tr.is-found td {
+  background: #fff39a;
+  outline: 2px solid #d7a800;
+}
+.result-page .necta-legend { display: none; }
+
+/* Individual result slip */
+.candidate-page {
+  min-height: 100vh;
+  color: #4a4746;
+  background: #f6f6f6;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.candidate-page .regional-header {
+  background: #16bd35;
+  color: #fff;
+}
+.candidate-page .regional-header-inner {
+  width: min(100% - 48px, 1180px);
+  min-height: 72px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.candidate-page .regional-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+.candidate-page .regional-logo {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  color: #16bd35;
+  background: #fff;
+  border-radius: 50%;
+  font: 700 22px Georgia, serif;
+}
+.candidate-page .regional-brand strong,
+.candidate-page .regional-brand small { display: block; }
+.candidate-page .regional-brand small {
+  margin-top: 3px;
+  color: #d8f7dd;
+  font-size: 9px;
+  letter-spacing: .14em;
+}
+.candidate-page .regional-header nav a { color: #fff; }
+.candidate-main {
+  width: min(100% - 48px, 900px);
+  margin: auto;
+  padding: 42px 0 70px;
+}
+.candidate-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+.candidate-top h1 {
+  margin: 0;
+  color: #333;
+  font-size: 32px;
+  font-weight: 500;
+}
+.candidate-top p:not(.regional-eyebrow) {
+  margin: 7px 0 0;
+  color: #788487;
+}
+.candidate-back {
+  padding: 9px 13px;
+  color: #0da92b;
+  background: #fff;
+  border: 1px solid #dbe5e7;
+  border-radius: 5px;
+  text-decoration: none;
+}
+.candidate-state {
+  padding: 32px;
+  color: #788487;
+  background: #fff;
+  border: 1px solid #e5e9eb;
+  border-radius: 7px;
+  text-align: center;
+}
+.candidate-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.candidate-error strong { color: #a83a3a; font-size: 18px; }
+.candidate-error a { color: #0da92b; }
+.candidate-slip {
+  padding: 28px;
+  background: #fff;
+  border: 1px solid #e5e9eb;
+  border-radius: 7px;
+  box-shadow: 0 5px 18px rgba(35, 65, 75, .04);
+}
+.slip-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #e5e9eb;
+}
+.slip-heading h2 { margin: 0 0 5px; color: #333; font-size: 22px; }
+.slip-heading span { color: #788487; font-size: 13px; }
+.slip-division {
+  min-width: 100px;
+  padding: 9px;
+  text-align: center;
+  border-radius: 5px;
+}
+.slip-division small,
+.slip-division strong { display: block; }
+.slip-division strong { margin-top: 3px; font-size: 25px; }
+.slip-division.is-pass { color: #0da92b; background: #eefbef; }
+.slip-division.is-fail { color: #a46d17; background: #fff7df; }
+.candidate-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 22px 0;
+}
+.candidate-summary div { padding: 12px; background: #f6f8f8; border-radius: 5px; }
+.candidate-summary span,
+.candidate-summary strong { display: block; }
+.candidate-summary span { color: #788487; font-size: 11px; }
+.candidate-summary strong { margin-top: 4px; color: #333; font-size: 15px; }
+.candidate-slip h3 { margin: 25px 0 10px; color: #333; font-size: 16px; }
+.candidate-table-wrap { overflow-x: auto; }
+.candidate-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.candidate-table th,
+.candidate-table td { padding: 10px 12px; border-bottom: 1px solid #e5e9eb; text-align: left; }
+.candidate-table th { color: #68777b; background: #f4f6f6; font-size: 11px; text-transform: uppercase; }
+.candidate-table th:not(:first-child),
+.candidate-table td:not(:first-child) { text-align: center; }
+.print-result {
+  min-height: 42px;
+  margin-top: 22px;
+  padding: 0 16px;
+  color: #fff;
+  background: #16bd35;
+  border: 0;
+  border-radius: 5px;
+  font: 700 13px Arial, sans-serif;
+  cursor: pointer;
+}
+.print-result:hover { background: #0da92b; }
+@media (max-width: 760px) {
+  .result-page .necta-brand { font-size: 19px; }
+  .result-page .necta-page { padding: 3px 4px 24px; }
+  .result-page .narrow-scroll { width: 100%; }
+  .result-page .division-scroll .necta-table.narrow { width: 760px; }
+  .result-page .summary-scroll .necta-table.narrow { width: 1040px; }
+  .candidate-main { width: calc(100% - 28px); padding: 30px 0 46px; }
+  .candidate-top { align-items: flex-start; flex-direction: column; }
+  .candidate-top h1 { font-size: 28px; }
+  .candidate-summary { grid-template-columns: repeat(2, 1fr); }
+  .candidate-slip { padding: 18px; }
+  .slip-heading { flex-direction: column; }
+}
+@media print {
+  .result-page .no-print,
+  .candidate-page .regional-header,
+  .candidate-back,
+  .print-result { display: none; }
+  .result-page .necta-page,
+  .candidate-main { width: 100%; padding: 0; }
+  .candidate-slip { border: 0; box-shadow: none; padding: 0; }
+}
+
