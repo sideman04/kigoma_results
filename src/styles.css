@@ -26,7 +26,11 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body, #root { height: 100%; }
+html { overflow-x: hidden; }
 body { margin: 0; font-family: var(--font); font-size: 16px; line-height: 1.5; color: var(--ink); background: var(--mist); }
+img, svg { display: block; max-width: 100%; height: auto; }
+button, input, select, textarea { font: inherit; }
+button, input, select, textarea, a { max-width: 100%; }
 h1, h2 { margin: 0; line-height: 1.2; }
 h1 { font-size: 1.75rem; }
 h2 { font-size: 1.125rem; }
@@ -209,6 +213,37 @@ td.num .field-error { display: block; }
   .slip-totals { grid-template-columns: repeat(2, 1fr); }
   .form-grid { grid-template-columns: 1fr; }
   .span-2 { grid-column: auto; }
+}
+@media (max-width: 640px) {
+  .shell { min-width: 0; }
+  .content { min-width: 0; padding: 18px 12px 32px; }
+  .dashboard-heading-actions,
+  .dashboard-heading-actions .btn { width: 100%; }
+  .dashboard-heading-actions { align-items: stretch; flex-direction: column; gap: 10px; }
+  .dashboard-alerts { padding: 13px; }
+  .alert-items { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .dashboard-card { min-width: 0; }
+  .dashboard-card .bars li { grid-template-columns: minmax(72px, 1fr) 1.2fr 42px; gap: 7px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .span-2 { grid-column: auto; }
+  .toolbar, .pager, .search-form { align-items: stretch; flex-direction: column; }
+  .toolbar > *, .search-form > * { width: 100%; max-width: none; }
+  .pager { gap: 12px; }
+  .slip { padding: 16px; }
+  .slip-head { align-items: stretch; flex-direction: column; }
+  .slip-totals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 420px) {
+  .topbar { min-height: 60px; }
+  .brand { font-size: 1rem; }
+  .content { padding-left: 10px; padding-right: 10px; }
+  .page-head { margin-bottom: 16px; }
+  .stats { grid-template-columns: 1fr; }
+  .table-wrap { overflow-x: auto; }
+  .table th, .table td { padding: 8px 10px; }
+  .btn, .chip, .nav-link { min-height: 42px; }
+  .login-form, .demo-box { max-width: 100%; }
+  .modal { padding: 18px 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }

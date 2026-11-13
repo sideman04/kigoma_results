@@ -57,7 +57,7 @@ const REGIONAL_GROUPS = [
 export const regionalRoutes = [
   {
     path: 'regional',
-    element: <RoleLayout groups={REGIONAL_GROUPS} mobileOpen={false} setMobileOpen={() => {}} brandName="Kigoma Education" brandRole="Regional Administrator" />,
+    element: <RoleLayout groups={REGIONAL_GROUPS} mobileOpen={false} setMobileOpen={() => {}} brandName="Kigoma Regional ERMS" brandRole="Regional Control Centre" />,
     children: [
       { index: true, element: <Dashboard /> },
       { path: 'dashboard', element: <Dashboard /> },

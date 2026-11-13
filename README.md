@@ -1,10 +1,10 @@
-# Kigoma Results Portal: frontend (React + Vite)
+# Kigoma Regional Education Results Management System
 
 ## Run it
     npm install
     npm run dev        # opens at http://localhost:5173
 
-Demo logins (password `demo1234`): `region`, `kasulu`, `lakeview`, `teacher`.
+Development logins (password `demo1234`): `region`, `kasulu`, `lakeview`, `teacher`.
 Public results page: /results (try registration number S0101/0001).
 
 ## What is included

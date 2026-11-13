@@ -89,7 +89,7 @@ export function Topbar({ breadcrumbs, title, description, showSearch = true, onM
               </div>
               <div className="user-info hidden sm:flex flex-col leading-tight">
                 <span className="text-xs font-semibold text-neutral-900">{user?.fullName || 'Super Administrator'}</span>
-                <span className="text-[10px] text-green-700 font-medium">Super Administrator</span>
+                <span className="text-[10px] text-green-700 font-medium">Regional Control Centre</span>
               </div>
               <ChevronDown className="h-4 w-4 shrink-0 text-neutral-400" />
             </button>
@@ -101,7 +101,7 @@ export function Topbar({ breadcrumbs, title, description, showSearch = true, onM
                     <User className="h-5 w-5 text-white" />
                   </div>
                   <div className="flex flex-col leading-tight">
-                    <span className="text-sm font-semibold text-neutral-900">{user?.fullName || 'Super Administrator'}</span>
+                    <span className="text-sm font-semibold text-neutral-900">{user?.fullName || user?.name || 'Regional Administrator'}</span>
                     <span className="text-[10px] text-neutral-500">{user?.username || 'superadmin'}</span>
                   </div>
                 </div>

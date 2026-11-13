@@ -47,7 +47,7 @@ const COUNCIL_GROUPS = [
 export const councilRoutes = [
   {
     path: 'council',
-    element: <RoleLayout groups={COUNCIL_GROUPS} mobileOpen={false} setMobileOpen={() => {}} brandName="Kigoma Education" brandRole="Council Administrator" />,
+    element: <RoleLayout groups={COUNCIL_GROUPS} mobileOpen={false} setMobileOpen={() => {}} brandName="Kigoma Regional ERMS" brandRole="Council Operations" />,
     children: [
       { index: true, element: <Dashboard /> },
       { path: 'dashboard', element: <Dashboard /> },

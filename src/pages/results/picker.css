@@ -385,3 +385,12 @@
         font-size: 11px
     }
 }
+
+@media(max-width:420px) {
+    .picker-title small { display: none; }
+    .picker-title { font-size: 16px; }
+    .picker-header nav { max-width: 48%; overflow: hidden; white-space: nowrap; font-size: 10px; text-overflow: ellipsis; }
+    .picker-main { width: calc(100% - 24px); }
+    .picker-intro h1 { font-size: 23px; }
+    .picker-steps { justify-content: flex-start; }
+}

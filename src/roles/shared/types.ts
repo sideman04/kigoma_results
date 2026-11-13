@@ -30,6 +30,8 @@ export interface RoleScope {
   regionId?: string;
   councilId?: string;
   schoolId?: string;
+  /** Multiple schools/centres assigned to a marks entry officer. */
+  schoolIds?: string[];
   regionName?: string;
   councilName?: string;
   schoolName?: string;

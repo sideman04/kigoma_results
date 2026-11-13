@@ -17,8 +17,9 @@ import {
 } from '../services/api';
 import { useToast } from '../components/ui/use-toast';
 import type { Region, Council, School, User, Examination, MarksSubmission, VerificationItem } from '../types';
-import { ArrowUpDown, Building, Users, Clock, FileText, CheckCircle, AlertCircle, Shield, ArrowRight, University } from 'lucide-react';
+import { ArrowUpDown, Building, Users, Clock, FileText, CheckCircle, AlertCircle, Shield, ArrowRight, University, KeyRound } from 'lucide-react';
 import { demoData } from '../services/mockData';
+import { listOfficers, type MarksOfficer } from '../../roles/shared/services/marksOfficers';
 
 export default function SuperAdminDashboard() {
   const { toast } = useToast();
@@ -40,9 +41,11 @@ export default function SuperAdminDashboard() {
   const [pendingActions, setPendingActions] = useState<Array<{
     id: string; title: string; desc: string; to: string;
   }>>([]);
+  const [officers, setOfficers] = useState<MarksOfficer[]>([]);
 
   useEffect(() => {
     loadSystemSnapshot();
+    setOfficers(listOfficers());
   }, []);
 
   async function loadSystemSnapshot() {
@@ -116,7 +119,7 @@ export default function SuperAdminDashboard() {
   if (loading) {
     return (
       <div className="dashboard space-y-6">
-        <PageHeader title="System Dashboard" description="Command centre for the entire examination management system." />
+        <PageHeader title="Regional Control Centre" description="Coordinate examination operations, performance and publication across Kigoma Region." />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[1,2,3,4].map((i) => (
             <SkeletonStat key={i} />
@@ -130,7 +133,7 @@ export default function SuperAdminDashboard() {
     <div className="dashboard space-y-6">
       <PageHeader
         title="System Dashboard"
-        description="Command centre for the entire examination management system."
+        description="Coordinate examination operations, performance and publication across Kigoma Region."
         action={<Button variant="ghost" size="sm">Refresh</Button>}
       />
 
@@ -232,6 +235,52 @@ export default function SuperAdminDashboard() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Marks Entry Officers management */}
+      <Card>
+        <CardHeader>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <CardTitle>Marks Entry Officers Management</CardTitle>
+              <p className="mt-1 text-xs text-neutral-500">Dedicated accounts that enter examination marks for assigned schools or centres. No public self-registration.</p>
+            </div>
+            <Link to="/super-admin/marks-officers" className="text-xs font-medium text-green-700 hover:underline">Manage officers →</Link>
+          </div>
+        </CardHeader>
+        <CardContent className="pt-0">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+            <Kpi title="Total officers" value={officers.length} icon={<Users className="h-5 w-5" />} note="Provisioned accounts" />
+            <Kpi title="Active officers" value={officers.filter((officer) => officer.status === 'active').length} icon={<KeyRound className="h-5 w-5" />} note="Can sign in now" tone="green" />
+            <Kpi title="Inactive officers" value={officers.filter((officer) => officer.status === 'inactive').length} icon={<AlertCircle className="h-5 w-5" />} note="Access suspended" tone="warning" />
+            <Kpi title="Assigned centres" value={new Set(officers.map((officer) => officer.schoolId || officer.councilId).filter(Boolean)).size} icon={<Building className="h-5 w-5" />} note="Schools or councils" tone="blue" />
+          </div>
+          <Separator className="my-4" />
+          {officers.length === 0 ? (
+            <EmptyState title="No Marks Entry Officers" description="Create the first officer account to begin examination marks processing." icon="Users" />
+          ) : (
+            <div className="space-y-3">
+              {officers.slice(0, 4).map((officer) => (
+                <div key={officer.id} className="flex items-center justify-between gap-3 rounded-lg border border-neutral-100 bg-white p-3">
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium text-neutral-900">{officer.fullName}</p>
+                    <p className="text-xs text-neutral-500">
+                      {officer.employeeNo} · {officer.schoolName || officer.councilName || officer.regionName || 'Assigned scope'}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-[11px] text-neutral-400">{officer.lastLoginAt ? new Date(officer.lastLoginAt).toLocaleDateString() : 'Never signed in'}</span>
+                    <Badge variant={officer.status === 'active' ? 'success' : 'neutral'}>{officer.status}</Badge>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="mt-4 flex flex-wrap gap-4">
+            <Link to="/super-admin/marks-officers" className="text-xs font-medium text-green-700 hover:underline">Create or manage officers →</Link>
+            <Link to="/super-admin/users" className="text-xs font-medium text-green-700 hover:underline">All system users →</Link>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

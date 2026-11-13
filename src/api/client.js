@@ -4,6 +4,7 @@
  * body of each function with a real request() call (examples in comments).
  */
 import { USERS, STUDENTS, RESULTS } from '../data/mock';
+import { authenticateOfficer } from '../roles/shared/services/marksOfficers';
 
 const BASE = import.meta.env.VITE_API_URL || '/api';
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -23,9 +24,18 @@ export async function login(username, password) {
   // Real version: return request('/auth/login.php', { method: 'POST', body: JSON.stringify({ username, password }) });
   await wait(400);
   const found = USERS.find((u) => u.username === username.trim() && u.password === password);
-  if (!found) throw new Error('Wrong username or password. Check both and try again.');
-  const { password: _omit, ...safe } = found;
-  return safe;
+  if (found) {
+    const { password: _omit, ...safe } = found;
+    return safe;
+  }
+
+  // Marks Entry Officers are provisioned by the Super Administrator and are not
+  // part of public/self-service registration. Their demo accounts live in the
+  // officer store so newly-created credentials work immediately.
+  const officer = authenticateOfficer(username, password);
+  if (officer) return officer;
+
+  throw new Error('Wrong username or password. Check both and try again.');
 }
 
 export async function saveMarks({ schoolId, form, subject, exam, rows }) {

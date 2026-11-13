@@ -3,10 +3,11 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import Login from './pages/Login';
 import Landing from './pages/Landing';
-import Dashboard from './pages/Dashboard';
 import Schools from './pages/Schools';
 import Students from './pages/Students';
 import MarksEntry from './pages/MarksEntry';
+import { useAuth } from './context/AuthContext';
+import { getRoleHome } from './roles/shared/config/roles';
 import ResultsIndex from './pages/results/ResultsIndex';
 import ResultsYears from './pages/results/ResultsYears';
 import ResultsCentres from './pages/results/ResultsCentres';
@@ -17,16 +18,24 @@ import { regionalRoutes } from './roles/regional/routes';
 import { councilRoutes } from './roles/council/routes';
 import { schoolRoutes } from './roles/school/routes';
 import { teacherRoutes } from './roles/teacher/routes';
+import { marksOfficerRoutes } from './roles/marks-officer/routes';
 
 const superAdminRoute = superAdminRoutes[0]!;
 const regionalRoute = regionalRoutes[0]!;
 const councilRoute = councilRoutes[0]!;
 const schoolRoute = schoolRoutes[0]!;
 const teacherRoute = teacherRoutes[0]!;
+const marksOfficerRoute = marksOfficerRoutes[0]!;
 
 const roleGuard = (roles: string[]) => (
   <ProtectedRoute roles={roles}><Outlet /></ProtectedRoute>
 );
+
+/** Legacy /dashboard entry point — send each role to its own workspace. */
+function RoleHomeRedirect() {
+  const { user } = useAuth() as any;
+  return <Navigate to={getRoleHome(user?.role)} replace />;
+}
 
 export default function App() {
   return (
@@ -43,7 +52,7 @@ export default function App() {
 
       {/* Staff pages (need login) */}
       <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="dashboard" element={<RoleHomeRedirect />} />
         <Route
           path="schools"
           element={<ProtectedRoute roles={['regional_admin', 'super_admin', 'council_admin']}><Schools /></ProtectedRoute>}
@@ -54,7 +63,7 @@ export default function App() {
         />
         <Route
           path="marks"
-          element={<ProtectedRoute roles={['super_admin', 'school_admin', 'teacher']}><MarksEntry /></ProtectedRoute>}
+          element={<ProtectedRoute roles={['super_admin', 'school_admin']}><MarksEntry /></ProtectedRoute>}
         />
       </Route>
 
@@ -114,10 +123,24 @@ export default function App() {
         </Route>
       </Route>
 
-      {/* Teacher */}
+      {/* Teacher — student management only */}
       <Route element={roleGuard(['teacher', 'super_admin'])}>
         <Route path={teacherRoute.path} element={teacherRoute.element}>
           {teacherRoute.children.map((child) => (
+            <Route
+              key={child.path ?? 'index'}
+              path={child.path}
+              index={child.index}
+              element={child.element}
+            />
+          ))}
+        </Route>
+      </Route>
+
+      {/* Marks Entry Officer — examination marks management only */}
+      <Route element={roleGuard(['marks_entry_officer', 'super_admin'])}>
+        <Route path={marksOfficerRoute.path} element={marksOfficerRoute.element}>
+          {marksOfficerRoute.children.map((child) => (
             <Route
               key={child.path ?? 'index'}
               path={child.path}

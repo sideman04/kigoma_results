@@ -12,7 +12,7 @@ export default function CandidateResult() {
   useEffect(() => { setResult(undefined); findResult(cno).then(setResult); }, [cno]);
 
   return <div className="candidate-page">
-    <header className="regional-header"><div className="regional-header-inner"><Link className="regional-brand" to="/results"><span className="regional-logo">K</span><span><strong>KIGOMA REGION</strong><small>EXAMINATION RESULTS PORTAL</small></span></Link><nav><Link to={`/results/type/${type}/year/${year}`}>All centres</Link></nav></div></header>
+    <header className="regional-header"><div className="regional-header-inner"><Link className="regional-brand" to="/results"><span className="regional-logo">K</span><span><strong>KIGOMA REGION</strong><small>EDUCATION RESULTS SERVICE</small></span></Link><nav><Link to={`/results/type/${type}/year/${year}`}>All centres</Link></nav></div></header>
     <main className="candidate-main">
       <div className="candidate-top"><div><p className="regional-eyebrow">KIGOMA REGIONAL EXAMINATIONS · {type.toUpperCase()} {year}</p><h1>Candidate result</h1><p>Individual examination result slip</p></div><Link className="candidate-back" to={`/results/type/${type}/year/${year}`}>← All centres</Link></div>
       {result === undefined && <div className="candidate-state">Searching for <strong>{cno}</strong>…</div>}

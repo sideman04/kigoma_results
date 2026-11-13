@@ -8,7 +8,7 @@ export default function ResultsYears() {
   const examType = type.toUpperCase();
   return (
     <div className="exam-picker">
-      <header className="picker-header"><div className="picker-header-inner"><Link className="picker-title" to="/results"><span className="picker-mark">K</span><span>KIGOMA REGION <small>RESULTS PORTAL</small></span></Link><nav><Link to="/">Home</Link><span>/</span><Link to="/results">Results</Link><span>/</span><span>{examType}</span></nav></div></header>
+      <header className="picker-header"><div className="picker-header-inner"><Link className="picker-title" to="/results"><span className="picker-mark">K</span><span>KIGOMA REGION <small>EDUCATION RESULTS SERVICE</small></span></Link><nav><Link to="/">Home</Link><span>/</span><Link to="/results">Results</Link><span>/</span><span>{examType}</span></nav></div></header>
       <main className="picker-main">
         <div className="picker-steps"><span className="is-done">✓</span><b>Examination type</b><i></i><span className="is-active">2</span><b>Year</b><i></i><span>3</span><b>Centre</b></div>
         <div className="picker-intro"><p>KIGOMA REGIONAL RESULTS · {examType}</p><h1>Choose examination year</h1><span>Select a year to continue to examination centres</span></div>

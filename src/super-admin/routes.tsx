@@ -18,6 +18,7 @@ import Streams from './pages/Streams';
 import Subjects from './pages/Subjects';
 import Combinations from './pages/Combinations';
 import Users from './pages/Users';
+import MarksOfficers from './pages/MarksOfficers';
 import Roles from './pages/Roles';
 import Permissions from './pages/Permissions';
 import Assignments from './pages/Assignments';
@@ -81,6 +82,8 @@ export const superAdminRoutes = [
       { path: 'academic/combinations', element: <Combinations /> },
       { path: 'users', element: <Users /> },
       { path: 'users/:id', element: <DetailPlaceholder title="User detail" /> },
+      { path: 'marks-officers', element: <MarksOfficers /> },
+      { path: 'marks-officers/:id', element: <MarksOfficers /> },
       { path: 'roles', element: <Roles /> },
       { path: 'roles/:id', element: <DetailPlaceholder title="Role detail" /> },
       { path: 'permissions', element: <Permissions /> },

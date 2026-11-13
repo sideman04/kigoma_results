@@ -30,6 +30,12 @@ import {
   Check,
   AlertCircle,
   ArrowRight,
+  UserPlus,
+  ListChecks,
+  Save,
+  Send,
+  Search,
+  ClipboardCheck,
 } from 'lucide-react';
 import { cn } from '../utils';
 import { useAuth } from '../../../context/AuthContext';
@@ -58,6 +64,12 @@ const ICONS: Record<string, React.ElementType> = {
   Check,
   AlertCircle,
   ArrowRight,
+  UserPlus,
+  ListChecks,
+  Save,
+  Send,
+  Search,
+  ClipboardCheck,
 };
 
 export interface RoleSidebarProps {
@@ -73,7 +85,7 @@ function RenderIcon({ name }: { name: string }) {
   return <Icon className="h-4 w-4 shrink-0" />;
 }
 
-export function RoleSidebar({ groups, mobileOpen, setMobileOpen, brandName = 'Kigoma Education', brandRole }: RoleSidebarProps) {
+export function RoleSidebar({ groups, mobileOpen, setMobileOpen, brandName = 'Kigoma Regional ERMS', brandRole }: RoleSidebarProps) {
   const auth = useAuth() as any;
   const user = auth.user;
   const signOut = auth.signOut;
@@ -84,11 +96,16 @@ export function RoleSidebar({ groups, mobileOpen, setMobileOpen, brandName = 'Ki
 
   useEffect(() => {
     if (!mobileOpen) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setMobileOpen(false);
     };
     window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+    };
   }, [mobileOpen, setMobileOpen]);
 
   const isActive = (to: string, exact: boolean | undefined) => {

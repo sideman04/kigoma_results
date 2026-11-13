@@ -48,6 +48,7 @@ function pageTitle(path: string): string {
     subjects: 'Subjects',
     combinations: 'Subject Combinations',
     users: 'All Users',
+    'marks-officers': 'Marks Entry Officers',
     roles: 'Roles',
     permissions: 'Permissions',
     assignments: 'User Assignments',
@@ -69,12 +70,13 @@ function pageTitle(path: string): string {
 
 function pageDescription(path: string): string | undefined {
   const desc: Record<string, string> = {
-    dashboard: 'Command centre for the entire examination management system.',
+    dashboard: 'Regional command centre for examination operations, performance and publication.',
     regions: 'Manage regions across the Kigoma education ecosystem.',
     councils: 'Manage councils and districts within each region.',
     schools: 'Register and oversee every school in the system.',
     hierarchy: 'Explore the region → council → school organisation tree.',
     users: 'Manage all system accounts and their organisational scope.',
+    'marks-officers': 'Create and manage dedicated Marks Entry Officer accounts and assignments.',
     settings: 'Configure institutional and system-wide settings.',
   };
   return desc[path.split('/').pop() || ''];

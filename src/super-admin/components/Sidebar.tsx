@@ -23,6 +23,7 @@ import {
   LayoutGrid,
   TreePine,
   BookOpen,
+  KeyRound,
 } from 'lucide-react';
 import { cn } from './utils';
 import { useAuth } from '../../context/AuthContext';
@@ -50,6 +51,7 @@ const ICONS: Record<string, React.ElementType> = {
   LayoutGrid,
   TreePine,
   BookOpen,
+  KeyRound,
 };
 
 export interface NavItem {
@@ -107,6 +109,7 @@ export const SIDEBAR_GROUPS: NavGroup[] = [
     label: 'User & Security Management',
     items: [
       { to: '/super-admin/users', label: 'All Users', icon: 'Users', exact: true },
+      { to: '/super-admin/marks-officers', label: 'Marks Entry Officers', icon: 'KeyRound' },
       { to: '/super-admin/roles', label: 'Roles', icon: 'Shield' },
       { to: '/super-admin/permissions', label: 'Permissions', icon: 'Shield' },
       { to: '/super-admin/assignments', label: 'User Assignments', icon: 'UserCircle' },
@@ -155,11 +158,16 @@ export function Sidebar({ mobileOpen, setMobileOpen }: { mobileOpen: boolean; se
 
   useEffect(() => {
     if (!mobileOpen) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setMobileOpen(false);
     };
     window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+    };
   }, [mobileOpen, setMobileOpen]);
 
   const isActive = (to: string, exact: boolean | undefined) => {
@@ -194,10 +202,10 @@ export function Sidebar({ mobileOpen, setMobileOpen }: { mobileOpen: boolean; se
           {!collapsed && (
             <div className="flex flex-col leading-tight">
               <span className="brand-name text-sm font-semibold text-neutral-900 leading-none">
-                Kigoma Education
+                Kigoma Regional ERMS
               </span>
               <span className="brand-sub text-[10px] text-neutral-500 uppercase tracking-wider">
-                Super Administrator
+                Regional Control Centre
               </span>
             </div>
           )}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { getRoleHome } from '../roles/shared/config/roles';
 
 const DEMO = [
   { label: 'Super admin', username: 'superadmin' },
@@ -8,15 +9,8 @@ const DEMO = [
   { label: 'Council admin', username: 'kasulu' },
   { label: 'School admin', username: 'lakeview' },
   { label: 'Teacher', username: 'teacher' },
+  { label: 'Marks entry officer', username: 'marksofficer' },
 ];
-
-const ROLE_HOME = {
-  super_admin: '/super-admin',
-  regional_admin: '/regional',
-  council_admin: '/council',
-  school_admin: '/school',
-  teacher: '/teacher',
-};
 
 export default function Login() {
   const { user, signIn } = useAuth();
@@ -27,7 +21,7 @@ export default function Login() {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
 
-  if (user) return <Navigate to={ROLE_HOME[user.role] || '/dashboard'} replace />;
+  if (user) return <Navigate to={getRoleHome(user.role)} replace />;
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -42,7 +36,7 @@ export default function Login() {
       const from = location.state?.from;
       const destination = from
         ? `${from.pathname}${from.search || ''}${from.hash || ''}`
-        : (ROLE_HOME[signedIn.role] || '/dashboard');
+        : getRoleHome(signedIn.role);
       navigate(destination, { replace: true });
     } catch (err) {
       setError(err.message);
@@ -55,10 +49,10 @@ export default function Login() {
     <div className="login">
       <section className="login-hero">
         <div>
-          <p className="login-kicker">Kigoma Region</p>
-          <h1>Results, from marks entry to published slip.</h1>
+          <p className="login-kicker">Kigoma Regional Education Office</p>
+          <h1>Marks, verification and results in one regional system.</h1>
           <p className="login-sub">
-            Teachers enter marks, schools check them, councils and the region see how every school is doing.
+            Schools submit marks, councils verify performance and the Regional Education Office coordinates the official results workflow.
           </p>
         </div>
         <svg className="waves" viewBox="0 0 600 160" preserveAspectRatio="none" aria-hidden="true">
@@ -99,7 +93,7 @@ export default function Login() {
 
         <div className="demo-box">
           <p>
-            <strong>Demo accounts</strong> (password <code>demo1234</code>). Pick one to fill the form:
+            <strong>Development access</strong> (password <code>demo1234</code>). Select an authorised role to fill the form:
           </p>
           <div className="demo-list">
             {DEMO.map((d) => (

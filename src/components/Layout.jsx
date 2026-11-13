@@ -4,13 +4,13 @@ import { useAuth } from '../context/AuthContext';
 import { ROLE_LABELS } from '../utils/scope';
 import Icon from './Icon';
 
-const ALL = ['regional_admin', 'super_admin', 'council_admin', 'school_admin', 'teacher'];
+const ALL = ['regional_admin', 'super_admin', 'council_admin', 'school_admin', 'teacher', 'marks_entry_officer'];
 const NAV = [
   { to: '/dashboard', label: 'Dashboard', icon: 'grid', roles: ['regional_admin', 'council_admin', 'school_admin', 'teacher'], end: true },
   { to: '/super-admin', label: 'Overview', icon: 'grid', roles: ['super_admin'], end: true },
   { to: '/schools', label: 'Schools', icon: 'school', roles: ['regional_admin', 'super_admin', 'council_admin'] },
   { to: '/students', label: 'Students', icon: 'users', roles: ['regional_admin', 'super_admin', 'council_admin', 'school_admin'] },
-  { to: '/marks', label: 'Marks entry', icon: 'edit', roles: ['super_admin', 'school_admin', 'teacher'] },
+  { to: '/marks', label: 'Marks entry', icon: 'edit', roles: ['super_admin', 'school_admin'] },
   { to: '/super-admin/verification', label: 'Verification', icon: 'check', roles: ['super_admin'] },
   { to: '/super-admin/users', label: 'Users & roles', icon: 'users', roles: ['super_admin'] },
   { to: '/super-admin/subjects', label: 'Subjects', icon: 'school', roles: ['super_admin'] },
@@ -31,7 +31,7 @@ export default function Layout() {
       <aside className={`sidebar ${open ? 'is-open' : ''}`}>
         <div className="brand">
           <span className="brand-mark" aria-hidden="true" />
-          <span>Kigoma Results</span>
+          <span>Kigoma Regional ERMS</span>
         </div>
 
         <nav aria-label="Main">

@@ -72,7 +72,7 @@ export default function MarksEntry({ basePath = '/teacher' }: { basePath?: strin
         const schoolId = typeof user?.schoolId === 'number'
           ? `school-s${String(user.schoolId).padStart(4, '0')}`
           : user?.schoolId;
-        const students = (await studentService.list({ pageSize: 100, scope: { schoolId } })).data
+        const students = (await studentService.list({ pageSize: 100, scope: { role: 'teacher', schoolId } })).data
           .filter((student) => student.classId === form.classId && (!form.streamId || student.streamId === form.streamId));
 
         if (!students.length) {
@@ -94,6 +94,11 @@ export default function MarksEntry({ basePath = '/teacher' }: { basePath?: strin
           teacherId: user?.username || 'teacher',
           academicYearId: form.academicYearId,
           status: 'draft',
+          totalStudents: students.length,
+          enteredCount: 0,
+          submittedCount: 0,
+          missingCount: students.length,
+          invalidCount: 0,
         });
         await marksService.saveMarks(session.id, students.map((student) => ({
           studentId: student.id,

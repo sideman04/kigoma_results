@@ -19,7 +19,7 @@ const userSchema = z.object({
   username: z.string().min(3, 'Username is required.'),
   email: z.string().email('Valid email required.'),
   fullName: z.string().min(2, 'Full name is required.'),
-  role: z.enum(['super_admin', 'regional_admin', 'council_admin', 'school_admin', 'teacher']),
+  role: z.enum(['super_admin', 'regional_admin', 'council_admin', 'school_admin', 'teacher', 'marks_entry_officer']),
   status: z.enum(['active', 'inactive', 'suspended']),
   regionId: z.string().optional(),
   councilId: z.string().optional(),
@@ -112,7 +112,7 @@ export default function Users() {
   const roleLabel: Record<string, string> = {
     super_admin: 'Super Administrator', regional_admin: 'Regional Administrator',
     council_admin: 'Council / District Administrator', school_admin: 'School Administrator',
-    teacher: 'Teacher',
+    teacher: 'Teacher', marks_entry_officer: 'Marks Entry Officer',
   };
   const statusBadge = (status: string) => (
     <Badge variant={status === 'active' ? 'success' : status === 'suspended' ? 'danger' : 'neutral'}>{status.replace('_', ' ')}</Badge>
@@ -175,6 +175,7 @@ export default function Users() {
               <Option value="council_admin">Council / District Administrator</Option>
               <Option value="school_admin">School Administrator</Option>
               <Option value="teacher">Teacher</Option>
+              <Option value="marks_entry_officer">Marks Entry Officer</Option>
             </Select>
             <Select label="Status" value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })} required>
               <Option value="active">Active</Option>
@@ -219,6 +220,7 @@ export default function Users() {
               <Option value="council_admin">Council / District Administrator</Option>
               <Option value="school_admin">School Administrator</Option>
               <Option value="teacher">Teacher</Option>
+              <Option value="marks_entry_officer">Marks Entry Officer</Option>
             </Select>
             <Select label="Status" value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })} required>
               <Option value="active">Active</Option>

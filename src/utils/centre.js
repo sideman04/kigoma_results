@@ -91,5 +91,5 @@ export function buildCentre(code) {
     };
   });
 
-  return { school, candidates, divisionSummary, summary, subjects, gpa: Math.round(gpa * 100) / 100 };
+  return { school, candidates, divisionSummary, summary, subjects, gpa };
 }

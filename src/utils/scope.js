@@ -11,4 +11,5 @@ export const ROLE_LABELS = {
   council_admin: 'Council admin',
   school_admin: 'School admin',
   teacher: 'Teacher',
+  marks_entry_officer: 'Marks entry officer',
 };

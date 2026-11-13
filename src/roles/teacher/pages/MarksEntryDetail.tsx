@@ -105,7 +105,7 @@ export default function MarksEntryDetail({ basePath = '/teacher' }: { basePath?:
 
   const submitMarks = async () => {
     if (!session || !canSubmit) return;
-    if (!window.confirm('Submit these marks for school review? You will not be able to edit after submission.')) return;
+    if (!window.confirm('Submit these marks? You will not be able to edit after submission.')) return;
     setSubmitting(true);
     try {
       await marksService.saveMarks(session.id, rows.map((r) => ({
@@ -117,8 +117,8 @@ export default function MarksEntryDetail({ basePath = '/teacher' }: { basePath?:
         error: r.error,
       })));
       await marksService.submitSession(session.id);
-      toast({ title: 'Marks submitted', variant: 'success' });
-      navigate('/teacher/dashboard');
+      toast({ title: 'Marks submitted', description: 'The marks session has been submitted successfully.', variant: 'success' });
+      navigate(`${basePath}/dashboard`);
     } catch (err) {
       toast({ title: 'Submit failed', description: err instanceof Error ? err.message : '', variant: 'default' });
     } finally {
@@ -275,7 +275,7 @@ export default function MarksEntryDetail({ basePath = '/teacher' }: { basePath?:
             <Save className="mr-2 h-4 w-4" /> Save draft
           </Button>
           <Button variant="primary" size="sm" onClick={submitMarks} disabled={submitting || !canSubmit} isLoading={submitting}>
-            <Upload className="mr-2 h-4 w-4" /> Submit for review
+            <Upload className="mr-2 h-4 w-4" /> Submit marks
           </Button>
           {!canSubmit && summary.invalid > 0 && (
             <Button variant="ghost" size="sm" className="text-red-600">Fix {summary.invalid} error(s)</Button>

@@ -7,7 +7,7 @@ import { useAuth } from '../../../context/AuthContext';
 import { examinationService, marksService, studentService, subjectService } from '../../shared/services/api';
 
 type ImportRow = Record<string, string>;
-type ImportReport = { subject: string; imported: number; errors: string[] }[];
+type ImportReport = { subject: string; imported: number; errors: string[] };
 
 const classes = [
   { id: 'class-f4', name: 'Form 4' },
@@ -90,14 +90,14 @@ export default function BulkMarksImport() {
     try {
       const rows = parseCsv(await file.text());
       const schoolId = schoolIdFor(user);
-      const students = (await studentService.list({ pageSize: 1000, scope: { schoolId } })).data
+      const students = (await studentService.list({ pageSize: 1000, scope: { role: 'school_admin', schoolId } })).data
         .filter((student) => student.classId === classId && (!streamId || student.streamId === streamId));
       const byRegNo = new Map(students.map((student) => [student.regNo?.toLowerCase(), student]));
       const headers = Object.keys(rows[0] || {});
       const subjectHeaders = headers.filter((header) => header !== 'regno' && header !== 'registrationnumber' && header !== 'registration' && subjectCodes.has(header));
       if (!subjectHeaders.length) throw new Error('No recognised subject columns found. Use subject codes such as MAT, ENG, BIO or CHE.');
 
-      const sessions = await marksService.listSessions({ pageSize: 1000, scope: { schoolId } });
+      const sessions = await marksService.listSessions({ pageSize: 1000, scope: { role: 'school_admin', schoolId } });
       const nextReport: ImportReport[] = [];
       for (const header of subjectHeaders) {
         const subject = subjects.find((item) => item.code?.toLowerCase() === header || item.id?.toLowerCase() === header);
@@ -129,6 +129,11 @@ export default function BulkMarksImport() {
           teacherId: user?.username || 'school-admin',
           academicYearId: 'year-2025',
           status: 'draft',
+          totalStudents: marks.length,
+          enteredCount: marks.filter((mark) => typeof mark.mark === 'number').length,
+          submittedCount: 0,
+          missingCount: marks.filter((mark) => typeof mark.mark !== 'number').length,
+          invalidCount: marks.filter((mark) => !!mark.error).length,
         });
         await marksService.saveMarks(session.id, marks);
         nextReport.push({ subject: subject.code, imported: marks.filter((mark) => !mark.error).length, errors });

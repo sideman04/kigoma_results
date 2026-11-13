@@ -10,6 +10,7 @@ import { Search, Bell, User, ChevronDown, LogOut, Mail } from 'lucide-react';
 import { useAuth } from '../../../context/AuthContext';
 import { Button, Input, Badge } from './ui';
 import { cn } from '../utils';
+import { getRoleLabel } from '../config/roles';
 
 export interface RoleTopbarProps {
   breadcrumbs?: React.ReactNode;
@@ -93,7 +94,7 @@ export function RoleTopbar({ breadcrumbs, title, description, showSearch = true,
               <div className="user-info hidden sm:flex flex-col leading-tight">
                 <span className="text-xs font-semibold text-neutral-900">{user?.fullName || user?.name || 'User'}</span>
                 <span className="text-[10px] text-green-700 font-medium">
-                  {(user?.role?.replace('_', ' ') || 'User')?.replace(/\b\w/g, (c: string) => c.toUpperCase())}
+                  {getRoleLabel(user?.role)}
                 </span>
                 {user?.scopeLabel && (
                   <span className="text-[10px] text-neutral-500">{user.scopeLabel}</span>

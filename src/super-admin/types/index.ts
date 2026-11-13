@@ -14,7 +14,8 @@ export type RoleId =
   | 'regional_admin'
   | 'council_admin'
   | 'school_admin'
-  | 'teacher';
+  | 'teacher'
+  | 'marks_entry_officer';
 
 export interface PaginationParams {
   page?: number;

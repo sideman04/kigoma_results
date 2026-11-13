@@ -52,7 +52,7 @@ const SCHOOL_GROUPS = [
 export const schoolRoutes = [
   {
     path: 'school',
-    element: <RoleLayout groups={SCHOOL_GROUPS} mobileOpen={false} setMobileOpen={() => {}} brandName="Kigoma Education" brandRole="School Administrator" />,
+    element: <RoleLayout groups={SCHOOL_GROUPS} mobileOpen={false} setMobileOpen={() => {}} brandName="Kigoma Regional ERMS" brandRole="School Operations" />,
     children: [
       { index: true, element: <Dashboard /> },
       { path: 'dashboard', element: <Dashboard /> },

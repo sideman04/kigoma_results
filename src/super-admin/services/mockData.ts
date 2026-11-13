@@ -212,7 +212,8 @@ export const roles: Role[] = [
   { id: 'role-regional_admin', name: 'Regional Administrator', slug: 'regional_admin', description: 'Manages all councils, schools and users within the assigned region.', system: true, createdAt: iso(-880) },
   { id: 'role-council_admin', name: 'Council / District Administrator', slug: 'council_admin', description: 'Manages schools, teachers and examination data within the assigned council.', system: true, createdAt: iso(-860) },
   { id: 'role-school_admin', name: 'School Administrator', slug: 'school_admin', description: 'Manages school users, classes, students and marks submission for one school.', system: true, createdAt: iso(-840) },
-  { id: 'role-teacher', name: 'Teacher', slug: 'teacher', description: 'Enters and reviews marks for assigned classes and subjects.', system: true, createdAt: iso(-820) },
+  { id: 'role-teacher', name: 'Teacher', slug: 'teacher', description: 'Manages student registration and student information only. No access to examination marks.', system: true, createdAt: iso(-820) },
+  { id: 'role-marks_entry_officer', name: 'Marks Entry Officer', slug: 'marks_entry_officer', description: 'Enters, reviews and submits examination marks for assigned schools or examination centres.', system: true, createdAt: iso(-810) },
 ];
 
 export const permissions: Permission[] = [
@@ -269,9 +270,12 @@ export const rolePermissions: RolePermission[] = [
   { roleId: 'role-school_admin', permissionId: 'perm-academic-view', granted: true },
   { roleId: 'role-school_admin', permissionId: 'perm-exam-view', granted: true },
   { roleId: 'role-school_admin', permissionId: 'perm-marks-submit', granted: true },
-  // Teacher
+  // Teacher: student management only
   { roleId: 'role-teacher', permissionId: 'perm-student-view', granted: true },
-  { roleId: 'role-teacher', permissionId: 'perm-marks-submit', granted: true },
+  // Marks Entry Officer: examination marks for assigned schools/centres
+  { roleId: 'role-marks_entry_officer', permissionId: 'perm-student-view', granted: true },
+  { roleId: 'role-marks_entry_officer', permissionId: 'perm-exam-view', granted: true },
+  { roleId: 'role-marks_entry_officer', permissionId: 'perm-marks-submit', granted: true },
 ];
 
 export const academicYears: AcademicYear[] = [

@@ -23,9 +23,9 @@ export function StatCard({ title, value, note, tone = 'neutral', icon, badge }: 
     blue: 'bg-blue-50 text-blue-700 border border-blue-100',
   };
   return (
-    <div className="rounded-lg border p-4 bg-white">
+    <div className={cn('stat-card rounded-lg border p-4 bg-white', toneClasses[tone])}>
       <div className="flex items-center gap-3 mb-3">
-        {icon && <span className="rounded p-1.5">{icon}</span>}
+        {icon && <span className="stat-card-icon rounded p-1.5">{icon}</span>}
         {badge && <span className={cn('inline-block', toneClasses[tone])}>{badge}</span>}
       </div>
       <p className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 mb-0.5">{title}</p>

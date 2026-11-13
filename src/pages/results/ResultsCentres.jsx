@@ -9,22 +9,19 @@ export default function ResultsCentres() {
   const { type = 'csee', year } = useParams();
   const navigate = useNavigate();
   const [centres, setCentres] = useState(null);
-  const [q, setQ] = useState('');
-  const [council, setCouncil] = useState('');
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [selectedLetter, setSelectedLetter] = useState('');
   const [indexNumber, setIndexNumber] = useState('');
   const [indexError, setIndexError] = useState('');
 
   useEffect(() => { listCentres().then(setCentres); }, []);
-  const councils = useMemo(() => [...new Set((centres || []).map((c) => c.council))].sort(), [centres]);
-  const groups = useMemo(() => {
-    const term = q.trim().toLowerCase();
-    const list = (centres || []).filter((c) => !council || c.council === council)
-      .filter((c) => !term || `${c.name} ${c.code}`.toLowerCase().includes(term)).sort((a, b) => a.name.localeCompare(b.name));
-    return list.reduce((all, c) => { (all[c.name[0].toUpperCase()] ||= []).push(c); return all; }, {});
-  }, [centres, q, council]);
+  const visible = useMemo(() => (centres || [])
+    .filter((centre) => !selectedLetter || centre.name.trim().toUpperCase().startsWith(selectedLetter))
+    .sort((a, b) => a.name.localeCompare(b.name)), [centres, selectedLetter]);
+  const rowsPerColumn = Math.ceil(visible.length / 3);
+  const columns = Array.from({ length: 3 }, (_, index) =>
+    visible.slice(index * rowsPerColumn, (index + 1) * rowsPerColumn)
+  );
 
-  const visible = Object.values(groups).flat();
   function findCandidate(event) {
     event.preventDefault();
     const value = indexNumber.trim().toUpperCase();
@@ -35,20 +32,41 @@ export default function ResultsCentres() {
     setIndexError('');
     navigate(`/results/type/${type}/year/${year}/candidate?cno=${encodeURIComponent(value)}`);
   }
-  return <div className="regional-results">
-    <header className="regional-header"><div className="regional-header-inner"><Link className="regional-brand" to="/results"><span className="regional-logo">K</span><span><strong>KIGOMA REGION</strong><small>EXAMINATION RESULTS PORTAL</small></span></Link><nav><Link to="/">Home</Link><span>/</span><Link to="/results">Results</Link><span>/</span><b>{type.toUpperCase()} {year}</b></nav></div></header>
-    <main className="regional-main">
-      <div className="regional-hero"><div><p className="regional-eyebrow">KIGOMA REGIONAL EXAMINATIONS · {type.toUpperCase()} {year}</p><h1>Examination results</h1><p>Choose an examination centre or find one candidate’s result directly.</p></div><div className="regional-actions"><button type="button" onClick={() => setSearchOpen((open) => !open)}>{searchOpen ? 'Close search' : 'Search by index number'}</button></div></div>
-      {searchOpen && <form className="index-search-panel" onSubmit={findCandidate} noValidate><div><strong>Find a candidate result</strong><span>Enter the candidate’s index number to view an individual result slip.</span></div><div className="index-search-fields"><label htmlFor="index-number">Index number<input id="index-number" value={indexNumber} onChange={(event) => setIndexNumber(event.target.value)} placeholder="S0101/0001" autoFocus /></label><button type="submit">View result <b aria-hidden="true">→</b></button></div>{indexError && <p role="alert">{indexError}</p>}</form>}
-      <section className="centre-directory">
-        <div className="directory-heading"><div><p className="regional-eyebrow">CENTRE DIRECTORY</p><h2>Select examination centre</h2></div><span className="directory-count">{visible.length} centres</span></div>
-        <div className="directory-toolbar"><label className="directory-search"><span>Search by centre name or number</span><input value={q} onChange={(e) => setQ(e.target.value)} placeholder="e.g. Lakeview Secondary or S0101" /></label><label className="directory-council"><span>Council</span><select value={council} onChange={(e) => setCouncil(e.target.value)}><option value="">All councils</option>{councils.map((c) => <option key={c}>{c}</option>)}</select></label></div>
-        <nav className="regional-letters" aria-label="Centres A to Z">{LETTERS.map((l) => groups[l] ? <a key={l} href={`#letter-${l}`}>{l}</a> : <span key={l}>{l}</span>)}</nav>
-        {!centres && <div className="directory-empty">Loading examination centres…</div>}
-        {centres && !visible.length && <div className="directory-empty">No centre matches your search. Try a different name or council.</div>}
-        <div className="centre-grid">{Object.keys(groups).sort().map((l) => <div key={l} id={`letter-${l}`} className="centre-letter-group"><h3>{l}</h3>{groups[l].map((c) => <Link className="centre-card" key={c.code} to={`/results/${c.code}?year=${year}&type=${type}`}><span className="centre-code">{c.code}</span><strong>{c.name}</strong><small>{c.council} <span>·</span> {c.ownership}</small><span className="centre-view">View results <b>→</b></span></Link>)}</div>)}</div>
-      </section>
+  return <div className="centres-page">
+    <header className="centres-header">
+      <p>CLICK ANY LETTER BELOW TO FILTER CENTRES BY ALPHABET</p>
+      <nav className="centres-letters" aria-label="Filter centres by first letter">
+        <button type="button" className={selectedLetter ? '' : 'is-selected'} aria-pressed={!selectedLetter} onClick={() => setSelectedLetter('')}>ALL CENTRES</button>
+        {LETTERS.map((letter) => <button
+          type="button"
+          key={letter}
+          className={selectedLetter === letter ? 'is-selected' : ''}
+          aria-pressed={selectedLetter === letter}
+          onClick={() => setSelectedLetter((current) => current === letter ? '' : letter)}
+        >{letter}</button>)}
+      </nav>
+    </header>
+    <main className="centres-main">
+      {!centres && <p className="centres-message" role="status">Loading examination centres…</p>}
+      {centres && !visible.length && <p className="centres-message">No centres found for {selectedLetter}.</p>}
+      {centres && visible.length > 0 && <div className="centres-columns">
+        {columns.map((column, index) => <div className="centres-column" key={index}>
+          {column.map((centre) => <Link
+            className="centres-entry"
+            key={centre.code}
+            to={`/results/${centre.code}?year=${year}&type=${type}`}
+          >{centre.name.toUpperCase()} - {centre.code}</Link>)}
+        </div>)}
+      </div>}
+      <details className="centres-candidate-search">
+        <summary>Find a candidate by index number</summary>
+        <form onSubmit={findCandidate} noValidate>
+          <label htmlFor="index-number">Index number</label>
+          <input id="index-number" value={indexNumber} onChange={(event) => setIndexNumber(event.target.value)} placeholder="S0101/0001" />
+          <button type="submit">View result</button>
+          {indexError && <p role="alert">{indexError}</p>}
+        </form>
+      </details>
     </main>
   </div>;
 }
-
